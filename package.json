@@ -7,6 +7,20 @@
   "engines": {
     "vscode": "^1.25.0"
   },
+  "license": "MIT – SEE LICENSE IN LICENSE FILE",
+  "homepage": "https://github.com/adiessl/vscode-backtix",
+  "bugs": {
+    "url": "https://github.com/adiessl/vscode-backtix/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adiessl/vscode-backtix.git"
+  },
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#BBBBBB",
+    "theme": "dark"
+  },
   "categories": [
     "Other"
   ],
