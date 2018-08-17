@@ -11,7 +11,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '\'');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
 
         test('from double quotes', () => {
@@ -20,7 +20,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '\'');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
 
         test('from backticks', () => {
@@ -29,7 +29,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '\'');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
       });
 
@@ -40,7 +40,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '\'');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
 
         test('from backticks', () => {
@@ -49,7 +49,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '\'');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
       });
 
@@ -60,7 +60,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '\'');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
 
         test('from backticks, including escaped backticks', () => {
@@ -69,7 +69,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '\'');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
       });
     });
@@ -82,7 +82,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '"');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
 
         test('from double quotes', () => {
@@ -91,7 +91,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '"');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
 
         test('from backticks', () => {
@@ -100,7 +100,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '"');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
       });
 
@@ -111,7 +111,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '"');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
 
         test('from backticks', () => {
@@ -120,7 +120,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '"');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
       });
 
@@ -131,7 +131,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '"');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
 
         test('from backticks, including escaped backticks', () => {
@@ -140,7 +140,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '"');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
       });
     });
@@ -153,7 +153,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '`');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
 
         test('from double quotes', () => {
@@ -162,7 +162,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '`');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
 
         test('from backticks', () => {
@@ -171,7 +171,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '`');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
       });
 
@@ -182,7 +182,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '`');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
 
         test('from double quotes', () => {
@@ -191,7 +191,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '`');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
       });
 
@@ -202,7 +202,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '`');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
 
         test('from double quotes, including escaped double quotes', () => {
@@ -211,7 +211,7 @@ suite('string.utils.test', () => {
 
           const actual = replaceQuoteChars(original, '`');
 
-          assert.equal(actual, expected);
+          assert.strictEqual(actual, expected);
         });
       });
     });
@@ -224,7 +224,7 @@ suite('string.utils.test', () => {
 
       const actual = replaceLineBreaks(original);
 
-      assert.equal(actual, expected);
+      assert.strictEqual(actual, expected);
     });
 
     test('all line break types should be replaced with the specified string', () => {
@@ -233,7 +233,7 @@ suite('string.utils.test', () => {
 
       const actual = replaceLineBreaks(original, '@');
 
-      assert.equal(actual, expected);
+      assert.strictEqual(actual, expected);
     });
   });
 
@@ -244,7 +244,7 @@ suite('string.utils.test', () => {
 
       const actual = wrapText(original, '@@@');
 
-      assert.equal(actual, expected);
+      assert.strictEqual(actual, expected);
     });
   });
 });
