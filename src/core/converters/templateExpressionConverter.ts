@@ -2,7 +2,7 @@ import * as ts from 'typescript';
 
 import { StringType, StringKindToQuote } from '../models/constants';
 import { NodeReplacement, createNodeReplacement } from '../models/nodeReplacement';
-import { wrapText } from '../utils/string.utils';
+import { wrapText, replaceLineBreaks } from '../utils/string.utils';
 
 export function convertTemplateExpressions(nodes: ts.Node[], targets: StringType[], link = ' + '): NodeReplacement[] {
 
@@ -11,14 +11,18 @@ export function convertTemplateExpressions(nodes: ts.Node[], targets: StringType
   ): NodeReplacement[] {
     function processNode(node: ts.Node, quoteChar: string): string {
 
+      function processString(text: string): string {
+        return wrapText(replaceLineBreaks(text), quoteChar);
+      }
+
       function processTemplateSpan(span: ts.TemplateSpan): string[] {
-        return [span.expression.getText(), wrapText(span.literal.text, quoteChar)];
+        return [span.expression.getText(), processString(span.literal.text)];
       }
 
       const parts: string[] = [];
 
       if (ts.isTemplateExpression(node)) {
-        parts.push(wrapText(node.head.text, quoteChar));
+        parts.push(processString(node.head.text));
 
         const spans = node.templateSpans
           .map(processTemplateSpan)
