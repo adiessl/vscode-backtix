@@ -1,7 +1,7 @@
 {
   "name": "vscode-backtix",
   "displayName": "BacktiX",
-  "description": "Easily convert plain strings to template literals.",
+  "description": "Easily convert plain strings to template literals and vice versa.",
   "version": "0.0.1",
   "publisher": "adiessl",
   "engines": {
@@ -10,17 +10,107 @@
   "categories": [
     "Other"
   ],
+  "keywords": [
+    "Quick fix",
+    "Replace quotes",
+    "Toggle quotes",
+    "Single quotes",
+    "Double quotes",
+    "Backticks"
+  ],
   "activationEvents": [
-    "onCommand:extension.sayHello"
+    "onLanguage:javascript",
+    "onLanguage:typescript",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescriptreact"
   ],
   "main": "./out/extension",
   "contributes": {
-    "commands": [
-      {
-        "command": "extension.sayHello",
-        "title": "Hello World"
+    "configuration": {
+      "type": "object",
+      "title": "BacktiX configuration",
+      "properties": {
+        "backtix.tryBool": {
+          "type": "boolean",
+          "default": false,
+          "description": "Complete functions with their parameter signature."
+        },
+        "backtix.languages": {
+          "type": "object",
+          "properties": {
+            "javascript": {
+              "type": "boolean",
+              "description": "JavaScript."
+            },
+            "typescript": {
+              "type": "boolean",
+              "description": "TypeScript."
+            },
+            "javascriptreact": {
+              "type": "boolean",
+              "description": "JavaScript React."
+            },
+            "typescriptreact": {
+              "type": "boolean",
+              "description": "TypeScript React."
+            }
+          },
+          "default": {
+            "javascript": true,
+            "typescript": true,
+            "javascriptreact": false,
+            "typescriptreact": false
+          },
+          "description": "Select the languages the conversions should be enabled for."
+        },
+        "backtix.conversions": {
+          "type": "object",
+          "properties": {
+            "convertToSingleQuotes": {
+              "type": "boolean",
+              "description": "Convert to single quotes."
+            },
+            "convertToDoubleQuotes": {
+              "type": "boolean",
+              "description": "Convert to double quotes."
+            },
+            "convertToBackticks": {
+              "type": "boolean",
+              "description": "Convert to backticks."
+            }
+          },
+          "default": {
+            "convertToSingleQuotes": true,
+            "convertToDoubleQuotes": true,
+            "convertToBackticks": true
+          },
+          "description": "Specify the target quote types you want conversions to be offered for."
+        },
+        "backtix.conversionTexts": {
+          "type": "object",
+          "properties": {
+            "convertToSingleQuotes": {
+              "type": "string",
+              "description": "The text for the option 'Convert to single quotes.'."
+            },
+            "convertToDoubleQuotes": {
+              "type": "string",
+              "description": "The text for the option 'Convert to double quotes.'."
+            },
+            "convertToBackticks": {
+              "type": "string",
+              "description": "The text for the option 'Convert to backticks.'."
+            }
+          },
+          "default": {
+            "convertToSingleQuotes": "Convert to single quotes.",
+            "convertToDoubleQuotes": "Convert to double quotes.",
+            "convertToBackticks": "Convert to backticks."
+          },
+          "description": "Specify the tooltip and quick fix texts for the offered conversions."
+        }
       }
-    ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
