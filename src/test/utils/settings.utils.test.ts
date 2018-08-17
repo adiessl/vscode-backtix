@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import { ConversionTargets, TargetLanguageSettings, ConversionTexts } from '../../core/models/extension-settings';
+import { ConversionTargets, TargetLanguageSettings, ConversionTexts } from '../../core/models/extensionSettings';
 import { StringType } from '../../core/models/constants';
 import { getTargetStringTypes, getLanguages, getTargetMessages } from '../../core/utils/settings.utils';
 

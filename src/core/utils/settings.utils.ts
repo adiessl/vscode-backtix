@@ -1,4 +1,4 @@
-import { TargetLanguageSettings, ConversionTexts, ConversionTargets } from '../models/extension-settings';
+import { TargetLanguageSettings, ConversionTexts, ConversionTargets } from '../models/extensionSettings';
 import { StringType } from '../models/constants';
 
 export function getTargetStringTypes(targets: ConversionTargets): StringType[] {
