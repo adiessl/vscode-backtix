@@ -19,7 +19,7 @@
   "icon": "images/icon.png",
   "galleryBanner": {
     "color": "#BBBBBB",
-    "theme": "dark"
+    "theme": "light"
   },
   "categories": [
     "Other"
