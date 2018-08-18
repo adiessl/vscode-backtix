@@ -1,5 +1,8 @@
 # Change Log
 
+## Version 1.0.2 (2018-08-18)
+- Add GIFs to README.
+
 ## Version 1.0.1 (2018-08-18)
 - Add `typescript` as a dependency
 

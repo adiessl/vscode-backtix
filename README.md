@@ -6,7 +6,7 @@ Have you ever pasted in some code from Stack Overflow that uses double quotes, b
 
 How many steps did you have to take in these cases, only to convert the strings to the desired format?
 
-If your answer to this question is *"Too many"* – **BacktiX** to the rescue! No more fumbling around, just use the **quick fixes** this extension provides and convert strings instantly.
+If your answer to the last question is *"Too many"* – **BacktiX** to the rescue! No more fumbling around, just use the **quick fixes** this extension provides and convert strings instantly.
 
 ## Features
 
@@ -14,13 +14,20 @@ If your answer to this question is *"Too many"* – **BacktiX** to the rescue! N
   * Template literals to single quoted strings.
   * Single quoted strings to double quoted strings.
   * Double quoted strings to template literals.
-* If the target quote character is present in the string, it will be escaped upon conversion.
-* Escaped quote characters will be "unescaped" upon conversion to another quote type.
+
+  ![Feature demo 1](images/feature_demo_1.gif)
+* If the target quote character is present in the string, it will be escaped upon conversion, already escaped quote characters will be "unescaped" upon conversion to another quote type.
+  ![Feature demo 2](images/feature_demo_2.gif)
 * Multi-line template literals will be moved to a single line upon conversion.
+  ![Feature demo 3](images/feature_demo_3.gif)
+* Expressions in template placeholders will be concatenated with `+` symbols.
+  ![Feature demo 4](images/feature_demo_4.gif)
 
 The conversions are offered as quick fixes, three dots below the beginning of a string indicate that there is a quick fix available. Access these by either pressing `Ctrl`-`.` (Windows, Linux) or `Cmd`-`.` (OSX). Alternatively you can click on the light bulb icon to bring them up.
 
 ## Installation
+
+![Installation](images/installation.gif)
 
 1. Launch VS Code.
 1. Press `Ctrl`-`Shift`-`X` (Windows, Linux) or `Shift`-`Cmd`-`X` (OSX) to bring up the extensions explorer.
