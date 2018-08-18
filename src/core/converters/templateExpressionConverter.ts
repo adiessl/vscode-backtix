@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 
-import { StringType, StringKindToQuote } from '../models/constants';
+import { StringType, StringTypeToQuote } from '../models/constants';
 import { NodeReplacement, createNodeReplacement } from '../models/nodeReplacement';
 import { wrapText, escapeQuoteChars, replaceLineBreaks } from '../utils/string.utils';
 
@@ -15,7 +15,7 @@ export function convertTemplateExpressions(nodes: ts.Node[], targets: StringType
         return wrapText(
           escapeQuoteChars(
             replaceLineBreaks(text),
-            StringKindToQuote[StringType.TEMPLATE_LITERAL], quoteChar),
+            StringTypeToQuote[StringType.TEMPLATE_LITERAL], quoteChar),
           quoteChar
         );
       }
@@ -43,7 +43,7 @@ export function convertTemplateExpressions(nodes: ts.Node[], targets: StringType
 
     return targets
       .filter(target => target !== StringType.TEMPLATE_LITERAL)
-      .map(target => [target, processNode(node, StringKindToQuote[target])] as [StringType, string])
+      .map(target => [target, processNode(node, StringTypeToQuote[target])] as [StringType, string])
       .map(([target, replaced]) => createNodeReplacement(node, target, replaced));
   }
 
