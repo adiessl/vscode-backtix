@@ -2,6 +2,8 @@
 
 ## Version 1.0.2 (2018-08-18)
 - Add GIFs to README.
+- Set the cursor positions/text selections back to where they were prior to converting.
+- Escape/unescape quote characters in template literals containing placeholders. ([#1][i1])
 
 ## Version 1.0.1 (2018-08-18)
 - Add `typescript` as a dependency
@@ -13,3 +15,7 @@
   - offered conversions (backticks/single quotes/double quotes)
   - supported languages (javascript/javascriptreact/typescript/typescriptreact)
 - Option to customize quick fix tooltip messages
+
+
+
+[i1]: https://github.com/adiessl/vscode-backtix/issues/1
