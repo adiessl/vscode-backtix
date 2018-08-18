@@ -7,11 +7,15 @@ export function replaceQuoteChars(text: string, targetQuoteChar: string) {
 
   const innerText = text.substring(currentQuoteChar.length, text.length - currentQuoteChar.length);
 
-  const replacedAndEscaped = innerText
-    .replace(new RegExp(`\\\\${currentQuoteChar}`, 'g'), currentQuoteChar)
-    .replace(new RegExp(`${targetQuoteChar}`, 'g'), `\\${targetQuoteChar}`);
+  const replacedAndEscaped = escapeQuoteChars(innerText, currentQuoteChar, targetQuoteChar);
 
   return `${targetQuoteChar}${replacedAndEscaped}${targetQuoteChar}`;
+}
+
+export function escapeQuoteChars(text: string, currentQuoteChar: string, targetQuoteChar: string) {
+  return text
+    .replace(new RegExp(`\\\\${currentQuoteChar}`, 'g'), currentQuoteChar)
+    .replace(new RegExp(`${targetQuoteChar}`, 'g'), `\\${targetQuoteChar}`);
 }
 
 export function replaceLineBreaks(text: string, replaceValue: string = ' ') {

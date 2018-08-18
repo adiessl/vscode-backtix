@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import { replaceQuoteChars, replaceLineBreaks, wrapText } from '../../core/utils/string.utils';
+import { replaceQuoteChars, escapeQuoteChars, replaceLineBreaks, wrapText } from '../../core/utils/string.utils';
 
 suite('string.utils.test', () => {
   suite('replaceQuoteChars', () => {
@@ -214,6 +214,35 @@ suite('string.utils.test', () => {
           assert.strictEqual(actual, expected);
         });
       });
+    });
+  });
+
+  suite('escapeQuoteChars', () => {
+    test('should escape correctly', () => {
+      const original = `This is a "test".`;
+      const expected = `This is a \\"test\\".`;
+
+      const actual = escapeQuoteChars(original, '\'', '"');
+
+      assert.strictEqual(actual, expected);
+    });
+
+    test('should unescape correctly', () => {
+      const original = `This is a \\"test\\".`;
+      const expected = `This is a "test".`;
+
+      const actual = escapeQuoteChars(original, '"', '\'');
+
+      assert.strictEqual(actual, expected);
+    });
+
+    test('should escape and unescape correctly', () => {
+      const original = 'This \`is\` a "test"';
+      const expected = 'This `is` a \\"test\\"';
+
+      const actual = escapeQuoteChars(original, '`', '"');
+
+      assert.strictEqual(actual, expected);
     });
   });
 
