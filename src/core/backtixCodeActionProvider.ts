@@ -97,9 +97,8 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
 
     const edit = new vscode.WorkspaceEdit();
     edit.replace(document.uri, range, replacement);
-    vscode.workspace.applyEdit(edit);
 
-    this.selections = currentSelections;
+    vscode.workspace.applyEdit(edit).then(() => this.selections = currentSelections);
   }
 
   private get selections(): vscode.Selection[] | undefined {
