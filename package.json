@@ -44,11 +44,6 @@
       "type": "object",
       "title": "BacktiX configuration",
       "properties": {
-        "backtix.tryBool": {
-          "type": "boolean",
-          "default": false,
-          "description": "Complete functions with their parameter signature."
-        },
         "backtix.languages": {
           "type": "object",
           "properties": {
