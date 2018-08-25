@@ -7,10 +7,11 @@ import { convertTemplateExpressions } from './converters/templateExpressionConve
 import { convertStringLiterals, convertNoSubstitutionTemplateLiterals } from './converters/simpleLiteralConverters';
 
 import { createSourceFile, retrieveNodes } from './utils/common.utils';
-import { convertToDiagnostic } from './utils/diagnostic.utils';
+import { convertToDiagnostic, convertToDiagnosticFromCode } from './utils/diagnostic.utils';
+import { getTemplateLiteralParts } from './utils/placeholder.utils';
 import { getTargetMessages, getTargetStringTypes } from './utils/settings.utils';
 
-import { StringType } from './models/constants';
+import { StringType, DiagnosticCodes } from './models/constants';
 import { ExtensionSettings } from './models/extensionSettings';
 import { NodeReplacement } from './models/nodeReplacement';
 
@@ -87,7 +88,11 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
 
     const diagnostics = replacements.map(replacement => convertToDiagnostic(textDocument, replacement, this.targetMessages));
 
-    this.diagnosticCollection.set(textDocument.uri, diagnostics);
+    const templateExpressionParts = getTemplateLiteralParts(nodes);
+    const placeholderDiagnostics = templateExpressionParts
+      .map(node => convertToDiagnosticFromCode(textDocument, node, 'Add placeholder.', DiagnosticCodes.ADD_PLACEHOLDER));
+
+    this.diagnosticCollection.set(textDocument.uri, diagnostics.concat(placeholderDiagnostics));
   }
 
   private runCodeAction(document: vscode.TextDocument, diagnostic: vscode.Diagnostic): any {
@@ -97,7 +102,17 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
       (edit: vscode.WorkspaceEdit, updatedSelections: vscode.Selection[] | undefined) =>
         vscode.workspace.applyEdit(edit).then(() => this.selections = updatedSelections);
 
-    this.replaceQuotes(document, diagnostic, currentSelections, applyEditFunc);
+    switch (diagnostic.code) {
+      case DiagnosticCodes.ADD_PLACEHOLDER:
+        this.convertSelectionToPlaceholder(document, diagnostic, currentSelections, applyEditFunc);
+        break;
+
+      default:
+        if (typeof diagnostic.code === 'string') {
+          this.replaceQuotes(document, diagnostic, currentSelections, applyEditFunc);
+        }
+        break;
+    }
   }
 
   private replaceQuotes(document: vscode.TextDocument,
@@ -110,6 +125,43 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
 
     const edit = new vscode.WorkspaceEdit();
     edit.replace(document.uri, range, replacement);
+
+    applyEditFunc(edit, selections);
+  }
+
+  private convertSelectionToPlaceholder(document: vscode.TextDocument,
+    diagnostic: vscode.Diagnostic,
+    selections: vscode.Selection[] | undefined,
+    applyEditFunc: (edit: vscode.WorkspaceEdit, updatedSelections: vscode.Selection[] | undefined) => void
+  ): void {
+    const startToken = '${';
+    const endToken = '}';
+
+    if (!selections || selections.length === 0) {
+      return;
+    }
+
+    const primarySelection = selections.shift()!;
+
+    const range = diagnostic.range.intersection(primarySelection);
+
+    if (!range) {
+      return;
+    }
+
+    const primarySelectedText = this.activeEditor!.document.getText(range);
+
+    const replacement = `${startToken}${primarySelectedText}${endToken}`;
+
+    const edit = new vscode.WorkspaceEdit();
+    edit.replace(document.uri, range, replacement);
+
+    const newFirst = new vscode.Selection(
+      new vscode.Position(primarySelection.anchor.line, primarySelection.anchor.character + startToken.length),
+      new vscode.Position(primarySelection.active.line, primarySelection.active.character + startToken.length)
+    );
+
+    selections.unshift(newFirst);
 
     applyEditFunc(edit, selections);
   }
