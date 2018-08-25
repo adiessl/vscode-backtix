@@ -31,10 +31,9 @@ export function convertToDiagnosticFromCode(
   return diagnostic;
 }
 
-
-function getDocumentRange(textDocument: vscode.TextDocument, node: ts.Node): vscode.Range {
-  const start = textDocument.positionAt(node.getStart());
-  const end = textDocument.positionAt(node.getEnd());
+function getDocumentRange(textDocument: vscode.TextDocument, node: ts.Node, offsets = { start: 0, end: 0 }): vscode.Range {
+  const start = textDocument.positionAt(node.getStart() + offsets.start);
+  const end = textDocument.positionAt(node.getEnd() + offsets.end);
 
   return new vscode.Range(start, end);
 }
