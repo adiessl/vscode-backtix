@@ -6,7 +6,8 @@ import * as ts from "typescript";
 import { convertTemplateExpressions } from './converters/templateExpressionConverter';
 import { convertStringLiterals, convertNoSubstitutionTemplateLiterals } from './converters/simpleLiteralConverters';
 
-import { createSourceFile, retrieveNodes, convertToDiagnostic } from './utils/common.utils';
+import { createSourceFile, retrieveNodes } from './utils/common.utils';
+import { convertToDiagnostic } from './utils/diagnostic.utils';
 import { getTargetMessages, getTargetStringTypes } from './utils/settings.utils';
 
 import { StringType } from './models/constants';
