@@ -1,5 +1,9 @@
 # Change Log
 
+## Version 1.1.0 (2018-08-25)
+- Add option to add a placeholder in template literals via quick fix.
+- Do not replace line breaks with a single space when converting multiline template literals, inline them instead.
+
 ## Version 1.0.2 (2018-08-18)
 - Add GIFs to README.
 - Set the cursor positions/text selections back to where they were prior to converting.
