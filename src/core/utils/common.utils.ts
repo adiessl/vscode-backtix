@@ -24,7 +24,11 @@ export function retrieveNodes(sourceFile: ts.SourceFile, syntaxKinds: { [kind in
   return matchedNodes;
 }
 
-export function convertToDiagnostic(textDocument: vscode.TextDocument, replacement: NodeReplacement, messages: { [t in StringType]: string }): vscode.Diagnostic {
+export function convertToDiagnostic(
+  textDocument: vscode.TextDocument,
+  replacement: NodeReplacement,
+  messages: { [t in StringType]: string }
+): vscode.Diagnostic {
   const range = getDocumentRange(textDocument, replacement.node);
 
   const diagnostic = new vscode.Diagnostic(range, messages[replacement.targetType], vscode.DiagnosticSeverity.Hint);
