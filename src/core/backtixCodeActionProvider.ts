@@ -93,13 +93,25 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
   private runCodeAction(document: vscode.TextDocument, diagnostic: vscode.Diagnostic): any {
     const currentSelections = this.selections;
 
+    const applyEditFunc =
+      (edit: vscode.WorkspaceEdit, updatedSelections: vscode.Selection[] | undefined) =>
+        vscode.workspace.applyEdit(edit).then(() => this.selections = updatedSelections);
+
+    this.replaceQuotes(document, diagnostic, currentSelections, applyEditFunc);
+  }
+
+  private replaceQuotes(document: vscode.TextDocument,
+    diagnostic: vscode.Diagnostic,
+    selections: vscode.Selection[] | undefined,
+    applyEditFunc: (edit: vscode.WorkspaceEdit, updatedSelections: vscode.Selection[] | undefined) => void
+  ): void {
     const range = diagnostic.range;
     const replacement = diagnostic.code as string;
 
     const edit = new vscode.WorkspaceEdit();
     edit.replace(document.uri, range, replacement);
 
-    vscode.workspace.applyEdit(edit).then(() => this.selections = currentSelections);
+    applyEditFunc(edit, selections);
   }
 
   private get selections(): vscode.Selection[] | undefined {
