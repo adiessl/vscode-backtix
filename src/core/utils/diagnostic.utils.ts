@@ -1,7 +1,7 @@
 import * as ts from "typescript";
 import * as vscode from 'vscode';
 
-import { StringType } from "../models/constants";
+import { StringType, DiagnosticCodes } from "../models/constants";
 import { NodeReplacement } from "../models/nodeReplacement";
 
 export function convertToDiagnostic(
@@ -16,6 +16,21 @@ export function convertToDiagnostic(
 
   return diagnostic;
 }
+
+export function convertToDiagnosticFromCode(
+  textDocument: vscode.TextDocument,
+  node: ts.Node,
+  message: string,
+  diagnosticCode: DiagnosticCodes
+): vscode.Diagnostic {
+  const range = getDocumentRange(textDocument, node);
+
+  const diagnostic = new vscode.Diagnostic(range, message, vscode.DiagnosticSeverity.Hint);
+  diagnostic.code = diagnosticCode;
+
+  return diagnostic;
+}
+
 
 function getDocumentRange(textDocument: vscode.TextDocument, node: ts.Node): vscode.Range {
   const start = textDocument.positionAt(node.getStart());
