@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import { replaceQuoteChars, escapeQuoteChars, replaceLineBreaks, wrapText } from '../../core/utils/string.utils';
+import { replaceQuoteChars, escapeQuoteChars, inlineLineBreaks, wrapText } from '../../core/utils/string.utils';
 
 suite('string.utils.test', () => {
   suite('replaceQuoteChars', () => {
@@ -246,21 +246,25 @@ suite('string.utils.test', () => {
     });
   });
 
-  suite('replaceLineBreaks', () => {
-    test('all line break types should be replaced', () => {
+  suite('inlineLineBreaks', () => {
+    test('all line break types should be inlined', () => {
       const original = 'This\ris\r\na\ntest.';
-      const expected = 'This is a test.';
+      const expected = 'This\\ris\\r\\na\\ntest.';
 
-      const actual = replaceLineBreaks(original);
+      const actual = inlineLineBreaks(original);
 
       assert.strictEqual(actual, expected);
     });
 
-    test('all line break types should be replaced with the specified string', () => {
-      const original = 'This\ris\r\na\ntest.';
-      const expected = 'This@is@a@test.';
+    test('multiline template literals should be inlined correctly', () => {
+      const original = `This
+      is
+      a
+      test.`;
 
-      const actual = replaceLineBreaks(original, '@');
+      const expected = 'This\\n      is\\n      a\\n      test.';
+
+      const actual = inlineLineBreaks(original);
 
       assert.strictEqual(actual, expected);
     });

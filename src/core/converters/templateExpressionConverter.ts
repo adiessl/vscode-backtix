@@ -2,7 +2,7 @@ import * as ts from 'typescript';
 
 import { StringType, StringTypeToQuote } from '../models/constants';
 import { NodeReplacement, createNodeReplacement } from '../models/nodeReplacement';
-import { wrapText, escapeQuoteChars, replaceLineBreaks } from '../utils/string.utils';
+import { wrapText, escapeQuoteChars, inlineLineBreaks } from '../utils/string.utils';
 
 export function convertTemplateExpressions(nodes: ts.Node[], targets: StringType[], link = ' + '): NodeReplacement[] {
 
@@ -14,7 +14,7 @@ export function convertTemplateExpressions(nodes: ts.Node[], targets: StringType
       function processString(text: string): string {
         return wrapText(
           escapeQuoteChars(
-            replaceLineBreaks(text),
+            inlineLineBreaks(text),
             StringTypeToQuote[StringType.TEMPLATE_LITERAL], quoteChar),
           quoteChar
         );

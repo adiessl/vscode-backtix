@@ -18,8 +18,8 @@ export function escapeQuoteChars(text: string, currentQuoteChar: string, targetQ
     .replace(new RegExp(`${targetQuoteChar}`, 'g'), `\\${targetQuoteChar}`);
 }
 
-export function replaceLineBreaks(text: string, replaceValue: string = ' ') {
-  return text.replace(/(?:\r\n|\r|\n)/g, replaceValue);
+export function inlineLineBreaks(text: string) {
+  return text.replace(/\n/g, '\\n').replace(/\r/g, '\\r');
 }
 
 export function wrapText(text: string, wrapper: string): string {
