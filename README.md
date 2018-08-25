@@ -22,8 +22,9 @@ If your answer to the last question is *"Too many"* – **BacktiX** to the rescu
   ![Feature demo 3](images/feature_demo_3.gif)
 * Expressions in template placeholders will be concatenated with `+` symbols.
   ![Feature demo 4](images/feature_demo_4.gif)
+* Easily add a placeholder (`${}`) in template literals.
 
-The conversions are offered as quick fixes, three dots below the beginning of a string indicate that there is a quick fix available. Access these by either pressing `Ctrl`-`.` (Windows, Linux) or `Cmd`-`.` (OSX). Alternatively you can click on the light bulb icon to bring them up.
+Adding a placeholder as well as the conversions are offered as quick fixes, three dots below the beginning of a string indicate that there is a quick fix available. Access these by either pressing `Ctrl`-`.` (Windows, Linux) or `Cmd`-`.` (OSX). Alternatively you can click on the light bulb icon to bring them up.
 
 ## Installation
 
@@ -68,6 +69,13 @@ This extension contributes the following settings:
     "convertToSingleQuotes": "Convert to single quotes.",
     "convertToDoubleQuotes": "Convert to double quotes.",
     "convertToBackticks": "Convert to backticks."
+  }
+  ```
+* `backtix.placeholders`: Options for 'Add placeholder.'. Defaults:
+  ```json
+  "backtix.placeholders": {
+    "active": true,
+    "text": "Add placeholder."
   }
   ```
 
