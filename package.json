@@ -116,6 +116,24 @@
             "convertToBackticks": "Convert to backticks."
           },
           "description": "Specify the tooltip and quick fix texts for the offered conversions."
+        },
+        "backtix.placeholders": {
+          "type": "object",
+          "properties": {
+            "active": {
+              "type": "boolean",
+              "description": "Enable/disable the option 'Add placeholder.'."
+            },
+            "text": {
+              "type": "string",
+              "description": "The tooltip and quick fix text for the option 'Add placeholder.'."
+            }
+          },
+          "default": {
+            "active": true,
+            "text": "Add placeholder."
+          },
+          "description": "Options for 'Add placeholder.'."
         }
       }
     }

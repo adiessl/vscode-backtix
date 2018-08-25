@@ -4,6 +4,8 @@ export interface ExtensionSettings {
   conversions: ConversionTargets;
 
   conversionTexts: ConversionTexts;
+
+  placeholders: PlaceholderSettings;
 }
 
 export interface TargetLanguageSettings {
@@ -25,4 +27,9 @@ export interface ConversionTexts {
   convertToSingleQuotes: string;
   convertToDoubleQuotes: string;
   convertToBackticks: string;
+}
+
+export interface PlaceholderSettings {
+  active: boolean;
+  text: string;
 }

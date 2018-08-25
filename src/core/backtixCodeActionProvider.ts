@@ -12,7 +12,7 @@ import { getTemplateLiteralParts } from './utils/placeholder.utils';
 import { getTargetMessages, getTargetStringTypes } from './utils/settings.utils';
 
 import { StringType, DiagnosticCodes } from './models/constants';
-import { ExtensionSettings } from './models/extensionSettings';
+import { ExtensionSettings, PlaceholderSettings } from './models/extensionSettings';
 import { NodeReplacement } from './models/nodeReplacement';
 
 export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
@@ -28,6 +28,8 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
 
   private readonly targetMessages: { [t in StringType]: string };
 
+  private readonly placeholderSettings: PlaceholderSettings;
+
   private readonly syntaxKinds: { [kind in ts.SyntaxKind]?: boolean } = {
     [ts.SyntaxKind.StringLiteral]: true,
     [ts.SyntaxKind.NoSubstitutionTemplateLiteral]: true,
@@ -37,6 +39,7 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
   constructor(private readonly settings: ExtensionSettings) {
     this.targetMessages = getTargetMessages(settings.conversionTexts);
     this.targets = getTargetStringTypes(settings.conversions);
+    this.placeholderSettings = settings.placeholders;
   }
 
   public activate(subscriptions: vscode.Disposable[]) {
@@ -94,8 +97,10 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
     const diagnostics = replacements.map(replacement => convertToDiagnostic(textDocument, replacement, this.targetMessages));
 
     const templateExpressionParts = getTemplateLiteralParts(nodes);
-    const placeholderDiagnostics = templateExpressionParts
-      .map(node => convertToDiagnosticFromCode(textDocument, node, 'Add placeholder.', DiagnosticCodes.ADD_PLACEHOLDER));
+    const placeholderDiagnostics = this.placeholderSettings.active
+      ? templateExpressionParts.map(node =>
+        convertToDiagnosticFromCode(textDocument, node, this.placeholderSettings.text, DiagnosticCodes.ADD_PLACEHOLDER))
+      : [];
 
     this.diagnosticCollection.set(textDocument.uri, diagnostics.concat(placeholderDiagnostics));
   }
