@@ -17,8 +17,11 @@ import { NodeReplacement } from './models/nodeReplacement';
 
 export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
 
-  private static commandId: string = 'backtix.convert';
-  private command!: vscode.Disposable;
+  private static convertCommandId: string = 'backtix.convert';
+  private static addPlaceholderCommandId: string = 'backtix.addPlaceholder';
+  private convertCommand!: vscode.Disposable;
+  private addPlaceholderCommand!: vscode.Disposable;
+
   private diagnosticCollection!: vscode.DiagnosticCollection;
 
   private readonly targets: StringType[];
@@ -37,7 +40,8 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
   }
 
   public activate(subscriptions: vscode.Disposable[]) {
-    this.command = vscode.commands.registerCommand(BacktixCodeActionProvider.commandId, this.runCodeAction, this);
+    this.convertCommand = vscode.commands.registerCommand(BacktixCodeActionProvider.convertCommandId, this.runConvertCodeAction, this);
+    this.addPlaceholderCommand = vscode.commands.registerCommand(BacktixCodeActionProvider.addPlaceholderCommandId, this.runAddPlaceholderCodeAction, this);
     subscriptions.push(this);
     this.diagnosticCollection = vscode.languages.createDiagnosticCollection();
 
@@ -49,7 +53,8 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
   public dispose(): void {
     this.diagnosticCollection.clear();
     this.diagnosticCollection.dispose();
-    this.command.dispose();
+    this.convertCommand.dispose();
+    this.addPlaceholderCommand.dispose();
   }
 
   public provideCodeActions(
@@ -60,7 +65,7 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
   ): vscode.Command[] {
     return context.diagnostics.map(diagnostic => ({
       title: diagnostic.message,
-      command: BacktixCodeActionProvider.commandId,
+      command: this.getCommandId(diagnostic),
       arguments: [document, diagnostic]
     }));
   }
@@ -95,53 +100,42 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
     this.diagnosticCollection.set(textDocument.uri, diagnostics.concat(placeholderDiagnostics));
   }
 
-  private runCodeAction(document: vscode.TextDocument, diagnostic: vscode.Diagnostic): any {
-    const currentSelections = this.selections;
-
-    const applyEditFunc =
-      (edit: vscode.WorkspaceEdit, updatedSelections: vscode.Selection[] | undefined) =>
-        vscode.workspace.applyEdit(edit).then(() => this.selections = updatedSelections);
-
+  private getCommandId(diagnostic: vscode.Diagnostic): string {
     switch (diagnostic.code) {
       case DiagnosticCodes.ADD_PLACEHOLDER:
-        this.convertSelectionToPlaceholder(document, diagnostic, currentSelections, applyEditFunc);
-        break;
+        return BacktixCodeActionProvider.addPlaceholderCommandId;
 
       default:
         if (typeof diagnostic.code === 'string') {
-          this.replaceQuotes(document, diagnostic, currentSelections, applyEditFunc);
+          return BacktixCodeActionProvider.convertCommandId;
         }
-        break;
+        throw new Error('No command id found!');
     }
   }
 
-  private replaceQuotes(document: vscode.TextDocument,
-    diagnostic: vscode.Diagnostic,
-    selections: vscode.Selection[] | undefined,
-    applyEditFunc: (edit: vscode.WorkspaceEdit, updatedSelections: vscode.Selection[] | undefined) => void
-  ): void {
+  private runConvertCodeAction(document: vscode.TextDocument, diagnostic: vscode.Diagnostic): any {
+    const currentSelections = this.selections;
+
     const range = diagnostic.range;
     const replacement = diagnostic.code as string;
 
     const edit = new vscode.WorkspaceEdit();
     edit.replace(document.uri, range, replacement);
 
-    applyEditFunc(edit, selections);
+    this.applyEditAndUpdateSelections(edit, currentSelections);
   }
 
-  private convertSelectionToPlaceholder(document: vscode.TextDocument,
-    diagnostic: vscode.Diagnostic,
-    selections: vscode.Selection[] | undefined,
-    applyEditFunc: (edit: vscode.WorkspaceEdit, updatedSelections: vscode.Selection[] | undefined) => void
-  ): void {
+  private runAddPlaceholderCodeAction(document: vscode.TextDocument, diagnostic: vscode.Diagnostic): any {
+    const currentSelections = this.selections;
+
     const startToken = '${';
     const endToken = '}';
 
-    if (!selections || selections.length === 0) {
+    if (!currentSelections || currentSelections.length === 0) {
       return;
     }
 
-    const primarySelection = selections.shift()!;
+    const primarySelection = currentSelections.shift()!;
 
     const range = diagnostic.range.intersection(primarySelection);
 
@@ -161,9 +155,13 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
       new vscode.Position(primarySelection.active.line, primarySelection.active.character + startToken.length)
     );
 
-    selections.unshift(newFirst);
+    currentSelections.unshift(newFirst);
 
-    applyEditFunc(edit, selections);
+    this.applyEditAndUpdateSelections(edit, currentSelections);
+  }
+
+  private applyEditAndUpdateSelections(edit: vscode.WorkspaceEdit, updatedSelections: vscode.Selection[] | undefined) {
+    vscode.workspace.applyEdit(edit).then(() => this.selections = updatedSelections);
   }
 
   private get selections(): vscode.Selection[] | undefined {
