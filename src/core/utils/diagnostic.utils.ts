@@ -23,7 +23,7 @@ export function convertToDiagnosticFromCode(
   message: string,
   diagnosticCode: DiagnosticCodes
 ): vscode.Diagnostic {
-  const range = getDocumentRange(textDocument, node);
+  const range = getDocumentRange(textDocument, node, { start: 1, end: -1 });
 
   const diagnostic = new vscode.Diagnostic(range, message, vscode.DiagnosticSeverity.Hint);
   diagnostic.code = diagnosticCode;
