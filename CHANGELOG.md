@@ -1,5 +1,8 @@
 # Change Log
 
+## Version 1.1.1 (2018-08-26)
+- Update README.
+
 ## Version 1.1.0 (2018-08-25)
 - Add option to add a placeholder in template literals via quick fix.
 - Do not replace line breaks with a single space when converting multiline template literals, inline them instead.
