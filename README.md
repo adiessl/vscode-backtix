@@ -18,11 +18,12 @@ If your answer to the last question is *"Too many"* – **BacktiX** to the rescu
   ![Feature demo 1](images/feature_demo_1.gif)
 * If the target quote character is present in the string, it will be escaped upon conversion, already escaped quote characters will be "unescaped" upon conversion to another quote type.
   ![Feature demo 2](images/feature_demo_2.gif)
-* Multi-line template literals will be moved to a single line upon conversion.
+* Multi-line template literals will be moved to a single line upon conversion, the newline characters will be inlined.
   ![Feature demo 3](images/feature_demo_3.gif)
 * Expressions in template placeholders will be concatenated with `+` symbols.
   ![Feature demo 4](images/feature_demo_4.gif)
-* Easily add a placeholder (`${}`) in template literals.
+* Easily add placeholders (`${}`) in template literals.
+  ![Feature demo 5](images/feature_demo_5.gif)
 
 Adding a placeholder as well as the conversions are offered as quick fixes, three dots below the beginning of a string indicate that there is a quick fix available. Access these by either pressing `Ctrl`-`.` (Windows, Linux) or `Cmd`-`.` (OSX). Alternatively you can click on the light bulb icon to bring them up.
 
