@@ -7,7 +7,7 @@
   "engines": {
     "vscode": "^1.55.0"
   },
-  "license": "MIT – SEE LICENSE IN LICENSE FILE",
+  "license": "MIT",
   "homepage": "https://github.com/adiessl/vscode-backtix",
   "bugs": {
     "url": "https://github.com/adiessl/vscode-backtix/issues"
