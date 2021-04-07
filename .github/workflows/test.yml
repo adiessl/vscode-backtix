@@ -13,5 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Restore packages
+        run: npm install
+
       - name: Compile, lint and test
         run: npm run test
