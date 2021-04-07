@@ -17,4 +17,5 @@ jobs:
         run: npm install
 
       - name: Compile, lint and test
+        uses: GabrielBB/xvfb-action@v1
         run: npm run test
