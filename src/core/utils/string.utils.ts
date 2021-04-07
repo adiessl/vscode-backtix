@@ -1,4 +1,4 @@
-export function replaceQuoteChars(text: string, targetQuoteChar: string) {
+export function replaceQuoteChars(text: string, targetQuoteChar: string): string {
   const currentQuoteChar = text[0];
 
   if (currentQuoteChar === targetQuoteChar) {
@@ -12,13 +12,13 @@ export function replaceQuoteChars(text: string, targetQuoteChar: string) {
   return `${targetQuoteChar}${replacedAndEscaped}${targetQuoteChar}`;
 }
 
-export function escapeQuoteChars(text: string, currentQuoteChar: string, targetQuoteChar: string) {
+export function escapeQuoteChars(text: string, currentQuoteChar: string, targetQuoteChar: string): string {
   return text
     .replace(new RegExp(`\\\\${currentQuoteChar}`, 'g'), currentQuoteChar)
     .replace(new RegExp(`${targetQuoteChar}`, 'g'), `\\${targetQuoteChar}`);
 }
 
-export function inlineLineBreaks(text: string) {
+export function inlineLineBreaks(text: string): string {
   return text.replace(/\n/g, '\\n').replace(/\r/g, '\\r');
 }
 

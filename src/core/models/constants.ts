@@ -4,7 +4,7 @@ export enum StringType {
   DOUBLE_QUOTE
 }
 
-export const StringTypeToQuote: { [type in StringType]: string } = {
+export const stringTypeToQuote: { [type in StringType]: string } = {
   [StringType.TEMPLATE_LITERAL]: '`',
   [StringType.SINGLE_QUOTE]: '\'',
   [StringType.DOUBLE_QUOTE]: '"'

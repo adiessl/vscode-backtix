@@ -237,7 +237,7 @@ suite('string.utils.test', () => {
     });
 
     test('should escape and unescape correctly', () => {
-      const original = 'This \`is\` a "test"';
+      const original = 'This `is` a "test"';
       const expected = 'This `is` a \\"test\\"';
 
       const actual = escapeQuoteChars(original, '`', '"');

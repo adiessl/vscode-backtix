@@ -8,7 +8,7 @@ import { getLanguages } from './core/utils/settings.utils';
 
 let backtixCodeActionProvider: BacktixCodeActionProvider;
 
-export function activate(context: vscode.ExtensionContext) {
+export function activate(context: vscode.ExtensionContext): void {
   const extensionSettings = getExtensionSettings();
   const languages = getLanguages(extensionSettings.languages);
 
@@ -18,7 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
   vscode.languages.registerCodeActionsProvider(languages, backtixCodeActionProvider);
 }
 
-export function deactivate() {
+export function deactivate(): void {
   backtixCodeActionProvider.dispose();
 }
 

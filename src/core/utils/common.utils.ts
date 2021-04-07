@@ -9,7 +9,7 @@ export function retrieveNodes(sourceFile: ts.SourceFile, syntaxKinds: { [kind in
   const matchedNodes: ts.Node[] = [];
 
   function filterStringNodes(node: ts.Node) {
-    if (!!syntaxKinds[node.kind]) {
+    if (syntaxKinds[node.kind]) {
       matchedNodes.push(node);
     }
 

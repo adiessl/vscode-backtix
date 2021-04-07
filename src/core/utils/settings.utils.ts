@@ -9,16 +9,16 @@ export function getTargetStringTypes(targets: ConversionTargets): StringType[] {
   ];
 
   return mapping
-    .filter(([_, include]) => include)
-    .map(([type, _]) => type);
+    .filter(([, include]) => include)
+    .map(([type]) => type);
 }
 
 export function getLanguages(settings: TargetLanguageSettings): string[] {
   return Object
     .keys(settings)
     .map(key => [key, settings[key]] as [string, boolean])
-    .filter(([_, value]) => value === true)
-    .map(([key, _]) => key);
+    .filter(([, value]) => value === true)
+    .map(([key]) => key);
 }
 
 export function getTargetMessages(texts: ConversionTexts): { [t in StringType]: string } {

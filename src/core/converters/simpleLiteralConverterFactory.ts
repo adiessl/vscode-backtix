@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 
-import { StringType, StringTypeToQuote } from '../models/constants';
+import { StringType, stringTypeToQuote } from '../models/constants';
 import { NodeReplacement, createNodeReplacement } from '../models/nodeReplacement';
 
 export function simpleLiteralConverterFactory(
@@ -20,8 +20,8 @@ export function simpleLiteralConverterFactory(
       const text = preprocessTextFunc(node.getText());
 
       return targets
-        .map(target => [target, replaceQuoteCharsFunc(text, StringTypeToQuote[target])] as [StringType, string])
-        .filter(([_, replaced]) => replaced !== text)
+        .map(target => [target, replaceQuoteCharsFunc(text, stringTypeToQuote[target])] as [StringType, string])
+        .filter(([, replaced]) => replaced !== text)
         .map(([target, replaced]) => createNodeReplacement(node, target, replaced));
     }
 
