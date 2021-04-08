@@ -144,7 +144,8 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "test-ci": "node -e 'require(\"./out/test/index.js\").run()'"
   },
   "dependencies": {
     "typescript": "^4.1.3"
