@@ -16,10 +16,13 @@ jobs:
       - name: Restore packages
         run: yarn
 
-      - name: Compile, lint and test (Linux)
-        run: xvfb-run -a yarn run test
-        if: runner.os == 'Linux'
+      - name: Start xvfb (Linux)
+        run: |
+          /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+          echo ">>> Started xvfb"
+        if: success() && runner.os == 'Linux'
 
-      - name: Compile, lint and test (Windows, Mac)
+      - name: Compile, lint and test
         run: yarn run test
-        if: runner.os != 'Linux'
+        env:
+          DISPLAY: ':99.0'
