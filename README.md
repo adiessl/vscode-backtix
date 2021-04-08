@@ -1,5 +1,3 @@
-[![Test](https://github.com/adiessl/vscode-backtix/actions/workflows/test.yml/badge.svg)](https://github.com/adiessl/vscode-backtix/actions/workflows/test.yml)
-
 # BacktiX (vscode-backtix) README
 
 Have you ever started typing an ordinary plain string in **JavaScript** or **TypeScript**, only to realize that it actually would be much fancier to use one of those template literals instead?
