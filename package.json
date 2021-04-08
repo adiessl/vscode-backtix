@@ -145,6 +145,7 @@
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
+    "pretest-ci": "npm run pretest",
     "test-ci": "node -e 'require(\"./out/test/index.js\").run()'"
   },
   "dependencies": {
