@@ -1,0 +1,67 @@
+name: Publish
+
+on: workflow_dispatch
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Restore packages
+        run: yarn
+
+      - name: Compile, lint and test
+        run: yarn run test-ci
+
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: fregante/setup-git-user@v1
+
+      - name: Retrieve package name and version
+        run: |
+          PACKAGE_NAME=$(cat package.json \
+            | grep name \
+            | head -1 \
+            | awk -F: '{ print $2 }' \
+            | sed 's/[",]//g' \
+            | tr -d '[[:space:]]')
+
+          echo "PACKAGE_NAME=$PACKAGE_NAME" >> $GITHUB_ENV
+
+          PACKAGE_VERSION=$(cat package.json \
+            | grep version \
+            | head -1 \
+            | awk -F: '{ print $2 }' \
+            | sed 's/[",]//g' \
+            | tr -d '[[:space:]]')
+
+          echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
+
+          RELEASE_NAME="$PACKAGE_NAME-$PACKAGE_VERSION.vsix"
+
+          echo "RELEASE_NAME=$RELEASE_NAME" >> $GITHUB_ENV
+
+      - name: Restore packages
+        run: yarn
+
+      - name: Publish extension
+        run: npx vsce publish ${{ env.PACKAGE_VERSION }} --pat ${{ secrets.AZURE_DEVOPS_TOKEN }}
+
+      - name: Package extension
+        run: npx vsce package --out ${{ env.RELEASE_NAME }}
+
+      - name: Create release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ env.RELEASE_NAME }}
+          tag: ${{ env.PACKAGE_VERSION }}
+          release_name: Version ${{ env.PACKAGE_VERSION }}
