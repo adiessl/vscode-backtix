@@ -1,5 +1,9 @@
 # Change Log
 
+## Version 1.2.0 (2021-04-09)
+- Update project structure, upgrade packages.
+- Build, test, package and publish extension using GitHub Actions.
+
 ## Version 1.1.1 (2018-08-26)
 - Update README.
 
