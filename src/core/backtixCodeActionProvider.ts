@@ -43,8 +43,8 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
   }
 
   public activate(subscriptions: vscode.Disposable[]): void {
-    this.convertCommand = vscode.commands.registerCommand(BacktixCodeActionProvider.convertCommandId, this.runConvertCodeAction, this);
-    this.addPlaceholderCommand = vscode.commands.registerCommand(BacktixCodeActionProvider.addPlaceholderCommandId, this.runAddPlaceholderCodeAction, this);
+    this.convertCommand = vscode.commands.registerTextEditorCommand(BacktixCodeActionProvider.convertCommandId, this.runConvertCodeAction, this);
+    this.addPlaceholderCommand = vscode.commands.registerTextEditorCommand(BacktixCodeActionProvider.addPlaceholderCommandId, this.runAddPlaceholderCodeAction, this);
     subscriptions.push(this);
     this.diagnosticCollection = vscode.languages.createDiagnosticCollection();
 
@@ -119,29 +119,20 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
     }
   }
 
-  private runConvertCodeAction(document: vscode.TextDocument, diagnostic: vscode.Diagnostic): void {
-    const currentSelections = this.selections;
-
+  private runConvertCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, document: vscode.TextDocument, diagnostic: vscode.Diagnostic): void {
     const range = diagnostic.range;
     const replacement = diagnostic.code as string;
 
-    const edit = new vscode.WorkspaceEdit();
-    edit.replace(document.uri, range, replacement);
-
-    this.applyEditAndUpdateSelections(edit, currentSelections);
+    edit.replace(range, replacement);
   }
 
-  private runAddPlaceholderCodeAction(document: vscode.TextDocument, diagnostic: vscode.Diagnostic): void {
-    const currentSelections = this.selections;
+  private runAddPlaceholderCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, document: vscode.TextDocument, diagnostic: vscode.Diagnostic): void {
+    const currentSelections = textEditor.selections;
 
     const startToken = '${';
     const endToken = '}';
 
-    if (!currentSelections || !this.activeEditor) {
-      return;
-    }
-
-    const primarySelection = currentSelections?.shift();
+    const primarySelection = currentSelections.shift();
 
     if (!primarySelection) {
       return;
@@ -153,12 +144,9 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
       return;
     }
 
-    const primarySelectedText = this.activeEditor.document.getText(range);
+    const primarySelectedText = textEditor.document.getText(range);
 
     const replacement = `${startToken}${primarySelectedText}${endToken}`;
-
-    const edit = new vscode.WorkspaceEdit();
-    edit.replace(document.uri, range, replacement);
 
     const newFirst = new vscode.Selection(
       new vscode.Position(primarySelection.anchor.line, primarySelection.anchor.character + startToken.length),
@@ -167,27 +155,6 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
 
     currentSelections.unshift(newFirst);
 
-    this.applyEditAndUpdateSelections(edit, currentSelections);
-  }
-
-  private applyEditAndUpdateSelections(edit: vscode.WorkspaceEdit, updatedSelections: vscode.Selection[] | undefined) {
-    vscode.workspace.applyEdit(edit).then(() => this.selections = updatedSelections);
-  }
-
-  private get selections(): vscode.Selection[] | undefined {
-    const editor = this.activeEditor;
-
-    return editor ? editor.selections : undefined;
-  }
-
-  private set selections(selections: vscode.Selection[] | undefined) {
-    const editor = this.activeEditor;
-    if (!!editor && !!selections) {
-      editor.selections = selections;
-    }
-  }
-
-  private get activeEditor(): vscode.TextEditor | undefined {
-    return vscode.window.activeTextEditor;
+    textEditor.edit(e => e.replace(range, replacement)).then(() => textEditor.selections = currentSelections);
   }
 }
