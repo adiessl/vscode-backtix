@@ -70,7 +70,7 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
     return context.diagnostics.map(diagnostic => ({
       title: diagnostic.message,
       command: this.getCommandId(diagnostic),
-      arguments: [document, diagnostic]
+      arguments: [diagnostic]
     }));
   }
 
@@ -119,14 +119,14 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
     }
   }
 
-  private runConvertCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, document: vscode.TextDocument, diagnostic: vscode.Diagnostic): void {
+  private runConvertCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic: vscode.Diagnostic): void {
     const range = diagnostic.range;
     const replacement = diagnostic.code as string;
 
     edit.replace(range, replacement);
   }
 
-  private runAddPlaceholderCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, document: vscode.TextDocument, diagnostic: vscode.Diagnostic): void {
+  private runAddPlaceholderCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic: vscode.Diagnostic): void {
     const currentSelections = textEditor.selections;
 
     const startToken = '${';
