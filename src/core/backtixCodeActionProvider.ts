@@ -63,9 +63,7 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
   public provideCodeActions(
     document: vscode.TextDocument,
     range: vscode.Range,
-    context: vscode.CodeActionContext,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    token: vscode.CancellationToken
+    context: vscode.CodeActionContext
   ): vscode.Command[] {
     return context.diagnostics.map(diagnostic => ({
       title: diagnostic.message,
