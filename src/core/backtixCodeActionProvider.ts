@@ -145,16 +145,16 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
     }
   }
 
-  private runConvertBackticksCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic: vscode.Diagnostic): void {
-    this.applyDiagnostic(edit, diagnostic);
+  private runConvertBackticksCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic?: vscode.Diagnostic): void {
+    this.applyDiagnostic(edit, diagnostic ?? this.getDiagnostic(textEditor, StringType.TEMPLATE_LITERAL));
   }
 
-  private runConvertSingleQuotesCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic: vscode.Diagnostic): void {
-    this.applyDiagnostic(edit, diagnostic);
+  private runConvertSingleQuotesCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic?: vscode.Diagnostic): void {
+    this.applyDiagnostic(edit, diagnostic ?? this.getDiagnostic(textEditor, StringType.SINGLE_QUOTE));
   }
 
-  private runConvertDoubleQuotesCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic: vscode.Diagnostic): void {
-    this.applyDiagnostic(edit, diagnostic);
+  private runConvertDoubleQuotesCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic?: vscode.Diagnostic): void {
+    this.applyDiagnostic(edit, diagnostic ?? this.getDiagnostic(textEditor, StringType.DOUBLE_QUOTE));
   }
 
   private runAddPlaceholderCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic: vscode.Diagnostic): void {
@@ -189,10 +189,22 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
     textEditor.edit(e => e.replace(range, replacement)).then(() => textEditor.selections = currentSelections);
   }
 
-  private applyDiagnostic(edit: vscode.TextEditorEdit, diagnostic: vscode.Diagnostic): void {
+  private applyDiagnostic(edit: vscode.TextEditorEdit, diagnostic?: vscode.Diagnostic): void {
+    if (!diagnostic) {
+      return;
+    }
+
     const range = diagnostic.range;
     const replacement = diagnostic.code as string;
 
     edit.replace(range, replacement);
+  }
+
+  private getDiagnostic(textEditor: vscode.TextEditor, stringType: StringType): vscode.Diagnostic | undefined {
+    return this.diagnosticCollection
+      .get(textEditor.document.uri)
+      ?.filter(d => d.message === this.targetMessages[stringType])
+      .filter(d => d.range.intersection(textEditor.selection))
+      ?.[0];
   }
 }
