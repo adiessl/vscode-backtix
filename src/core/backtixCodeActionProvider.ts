@@ -17,9 +17,13 @@ import { NodeReplacement } from './models/nodeReplacement';
 
 export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
 
-  private static convertCommandId = 'backtix.convert';
+  private static convertBackticksCommandId = 'backtix.convertBackticks';
+  private static convertSingleQuotesCommandId = 'backtix.convertSingleQuotes';
+  private static convertDoubleQuotesCommandId = 'backtix.convertDoubleQuotes';
   private static addPlaceholderCommandId = 'backtix.addPlaceholder';
-  private convertCommand!: vscode.Disposable;
+  private convertBackticksCommand!: vscode.Disposable;
+  private convertSingleQuotesCommand!: vscode.Disposable;
+  private convertDoubleQuotesCommand!: vscode.Disposable;
   private addPlaceholderCommand!: vscode.Disposable;
 
   private diagnosticCollection!: vscode.DiagnosticCollection;
@@ -43,9 +47,25 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
   }
 
   public activate(subscriptions: vscode.Disposable[]): void {
-    this.convertCommand = vscode.commands.registerTextEditorCommand(BacktixCodeActionProvider.convertCommandId, this.runConvertCodeAction, this);
-    this.addPlaceholderCommand = vscode.commands.registerTextEditorCommand(BacktixCodeActionProvider.addPlaceholderCommandId, this.runAddPlaceholderCodeAction, this);
+    this.convertBackticksCommand = vscode.commands.registerTextEditorCommand(
+      BacktixCodeActionProvider.convertBackticksCommandId,
+      this.runConvertBackticksCodeAction,
+      this);
+    this.convertSingleQuotesCommand = vscode.commands.registerTextEditorCommand(
+      BacktixCodeActionProvider.convertSingleQuotesCommandId,
+      this.runConvertSingleQuotesCodeAction,
+      this);
+    this.convertDoubleQuotesCommand = vscode.commands.registerTextEditorCommand(
+      BacktixCodeActionProvider.convertDoubleQuotesCommandId,
+      this.runConvertDoubleQuotesCodeAction,
+      this);
+    this.addPlaceholderCommand = vscode.commands.registerTextEditorCommand(
+      BacktixCodeActionProvider.addPlaceholderCommandId,
+      this.runAddPlaceholderCodeAction,
+      this);
+
     subscriptions.push(this);
+
     this.diagnosticCollection = vscode.languages.createDiagnosticCollection();
 
     this.registerEventHandlers(subscriptions);
@@ -56,7 +76,9 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
   public dispose(): void {
     this.diagnosticCollection.clear();
     this.diagnosticCollection.dispose();
-    this.convertCommand.dispose();
+    this.convertBackticksCommand.dispose();
+    this.convertSingleQuotesCommand.dispose();
+    this.convertDoubleQuotesCommand.dispose();
     this.addPlaceholderCommand.dispose();
   }
 
@@ -105,23 +127,34 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
   }
 
   private getCommandId(diagnostic: vscode.Diagnostic): string {
-    switch (diagnostic.code) {
-      case DiagnosticCodes.ADD_PLACEHOLDER:
+    switch (diagnostic.message) {
+      case this.placeholderSettings.text:
         return BacktixCodeActionProvider.addPlaceholderCommandId;
 
+      case this.targetMessages[StringType.TEMPLATE_LITERAL]:
+        return BacktixCodeActionProvider.convertBackticksCommandId;
+
+      case this.targetMessages[StringType.SINGLE_QUOTE]:
+        return BacktixCodeActionProvider.convertSingleQuotesCommandId;
+
+      case this.targetMessages[StringType.DOUBLE_QUOTE]:
+        return BacktixCodeActionProvider.convertDoubleQuotesCommandId;
+
       default:
-        if (typeof diagnostic.code === 'string') {
-          return BacktixCodeActionProvider.convertCommandId;
-        }
         throw new Error('No command id found!');
     }
   }
 
-  private runConvertCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic: vscode.Diagnostic): void {
-    const range = diagnostic.range;
-    const replacement = diagnostic.code as string;
+  private runConvertBackticksCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic: vscode.Diagnostic): void {
+    this.applyDiagnostic(edit, diagnostic);
+  }
 
-    edit.replace(range, replacement);
+  private runConvertSingleQuotesCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic: vscode.Diagnostic): void {
+    this.applyDiagnostic(edit, diagnostic);
+  }
+
+  private runConvertDoubleQuotesCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic: vscode.Diagnostic): void {
+    this.applyDiagnostic(edit, diagnostic);
   }
 
   private runAddPlaceholderCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic: vscode.Diagnostic): void {
@@ -154,5 +187,12 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
     currentSelections.unshift(newFirst);
 
     textEditor.edit(e => e.replace(range, replacement)).then(() => textEditor.selections = currentSelections);
+  }
+
+  private applyDiagnostic(edit: vscode.TextEditorEdit, diagnostic: vscode.Diagnostic): void {
+    const range = diagnostic.range;
+    const replacement = diagnostic.code as string;
+
+    edit.replace(range, replacement);
   }
 }
