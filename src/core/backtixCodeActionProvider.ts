@@ -146,18 +146,39 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
   }
 
   private runConvertBackticksCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic?: vscode.Diagnostic): void {
-    this.applyDiagnostic(edit, diagnostic ?? this.getDiagnostic(textEditor, StringType.TEMPLATE_LITERAL));
+    this.applyDiagnostic(edit, diagnostic ?? this.getConvertDiagnostic(textEditor, StringType.TEMPLATE_LITERAL));
   }
 
   private runConvertSingleQuotesCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic?: vscode.Diagnostic): void {
-    this.applyDiagnostic(edit, diagnostic ?? this.getDiagnostic(textEditor, StringType.SINGLE_QUOTE));
+    this.applyDiagnostic(edit, diagnostic ?? this.getConvertDiagnostic(textEditor, StringType.SINGLE_QUOTE));
   }
 
   private runConvertDoubleQuotesCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic?: vscode.Diagnostic): void {
-    this.applyDiagnostic(edit, diagnostic ?? this.getDiagnostic(textEditor, StringType.DOUBLE_QUOTE));
+    this.applyDiagnostic(edit, diagnostic ?? this.getConvertDiagnostic(textEditor, StringType.DOUBLE_QUOTE));
   }
 
-  private runAddPlaceholderCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic: vscode.Diagnostic): void {
+  private runAddPlaceholderCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic?: vscode.Diagnostic): void {
+    diagnostic ??= this.getPlaceholderDiagnostic(textEditor);
+
+    const edits: { range: vscode.Range, replacement: string }[] = [];
+
+    if (!diagnostic) {
+      diagnostic = this.getConvertDiagnostic(textEditor, StringType.TEMPLATE_LITERAL);
+
+      if (!diagnostic) {
+        return;
+      }
+
+      const { start, end } = diagnostic.range;
+      const replacement = diagnostic.code as string;
+
+      const firstRange = new vscode.Range(start, start.translate(0, 1));
+      const lastRange = new vscode.Range(end.translate(0, -1), end);
+
+      edits.push({ range: firstRange, replacement: replacement[0] });
+      edits.push({ range: lastRange, replacement: replacement.slice(-1) });
+    }
+
     const currentSelections = textEditor.selections;
 
     const startToken = '${';
@@ -179,6 +200,8 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
 
     const replacement = `${startToken}${primarySelectedText}${endToken}`;
 
+    edits.push({ range, replacement });
+
     const newFirst = new vscode.Selection(
       new vscode.Position(primarySelection.anchor.line, primarySelection.anchor.character + startToken.length),
       new vscode.Position(primarySelection.active.line, primarySelection.active.character + startToken.length)
@@ -186,7 +209,9 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
 
     currentSelections.unshift(newFirst);
 
-    textEditor.edit(e => e.replace(range, replacement)).then(() => textEditor.selections = currentSelections);
+    textEditor
+      .edit(e => edits.forEach(({ range, replacement }) => e.replace(range, replacement)))
+      .then(() => textEditor.selections = currentSelections);
   }
 
   private applyDiagnostic(edit: vscode.TextEditorEdit, diagnostic?: vscode.Diagnostic): void {
@@ -200,10 +225,18 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
     edit.replace(range, replacement);
   }
 
-  private getDiagnostic(textEditor: vscode.TextEditor, stringType: StringType): vscode.Diagnostic | undefined {
+  private getConvertDiagnostic(textEditor: vscode.TextEditor, stringType: StringType): vscode.Diagnostic | undefined {
+    return this.getDiagnostic(textEditor, this.targetMessages[stringType]);
+  }
+
+  private getPlaceholderDiagnostic(textEditor: vscode.TextEditor): vscode.Diagnostic | undefined {
+    return this.getDiagnostic(textEditor, this.placeholderSettings.text);
+  }
+
+  private getDiagnostic(textEditor: vscode.TextEditor, message: string): vscode.Diagnostic | undefined {
     return this.diagnosticCollection
       .get(textEditor.document.uri)
-      ?.filter(d => d.message === this.targetMessages[stringType])
+      ?.filter(d => d.message === message)
       .filter(d => d.range.intersection(textEditor.selection))
       ?.[0];
   }
