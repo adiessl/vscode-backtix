@@ -32,6 +32,10 @@
     "Backticks"
   ],
   "activationEvents": [
+    "onCommand:backtix.convertBackticks",
+    "onCommand:backtix.convertSingleQuotes",
+    "onCommand:backtix.convertDoubleQuotes",
+    "onCommand:backtix.addPlaceholder",
     "onLanguage:javascript",
     "onLanguage:typescript",
     "onLanguage:javascriptreact",
@@ -39,6 +43,32 @@
   ],
   "main": "./out/extension",
   "contributes": {
+    "commands": [
+      {
+        "command": "backtix.convertBackticks",
+        "title": "Convert string to backticks",
+        "category": "BackTix",
+        "enablement": "!editorReadonly && editorLangId == javascript && config.backtix.conversions.convertToBackticks || !editorReadonly && editorLangId == typescript && config.backtix.conversions.convertToBackticks || !editorReadonly && editorLangId == javascriptreact && config.backtix.conversions.convertToBackticks || !editorReadonly && editorLangId == typescriptreact && config.backtix.conversions.convertToBackticks"
+      },
+      {
+        "command": "backtix.convertSingleQuotes",
+        "title": "Convert string to single quotes",
+        "category": "BackTix",
+        "enablement": "!editorReadonly && editorLangId == javascript && config.backtix.conversions.convertToSingleQuotes || !editorReadonly && editorLangId == typescript && config.backtix.conversions.convertToSingleQuotes || !editorReadonly && editorLangId == javascriptreact && config.backtix.conversions.convertToSingleQuotes || !editorReadonly && editorLangId == typescriptreact && config.backtix.conversions.convertToSingleQuotes"
+      },
+      {
+        "command": "backtix.convertDoubleQuotes",
+        "title": "Convert string to double quotes",
+        "category": "BackTix",
+        "enablement": "!editorReadonly && editorLangId == javascript && config.backtix.conversions.convertToDoubleQuotes || !editorReadonly && editorLangId == typescript && config.backtix.conversions.convertToDoubleQuotes || !editorReadonly && editorLangId == javascriptreact && config.backtix.conversions.convertToDoubleQuotes || !editorReadonly && editorLangId == typescriptreact && config.backtix.conversions.convertToDoubleQuotes"
+      },
+      {
+        "command": "backtix.addPlaceholder",
+        "title": "Add placeholder",
+        "category": "BackTix",
+        "enablement": "!editorReadonly && editorLangId == javascript && config.backtix.conversions.convertToBackticks || !editorReadonly && editorLangId == typescript && config.backtix.conversions.convertToBackticks || !editorReadonly && editorLangId == javascriptreact && config.backtix.conversions.convertToBackticks || !editorReadonly && editorLangId == typescriptreact && config.backtix.conversions.convertToBackticks"
+      }
+    ],
     "configuration": {
       "type": "object",
       "title": "BacktiX configuration",
