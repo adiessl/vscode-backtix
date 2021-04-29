@@ -1,5 +1,8 @@
 # Change Log
 
+## Version 2.0.0 (2021-04-29)
+- Support converting strings and adding placeholders via command palette / keyboard shortcut ([#4][i4])
+
 ## Version 1.2.0 (2021-04-09)
 - Update project structure, upgrade packages.
 - Build, test, package and publish extension using GitHub Actions.
@@ -30,3 +33,4 @@
 
 
 [i1]: https://github.com/adiessl/vscode-backtix/issues/1
+[i4]: https://github.com/adiessl/vscode-backtix/issues/4
