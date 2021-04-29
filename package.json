@@ -129,21 +129,21 @@
           "properties": {
             "convertToSingleQuotes": {
               "type": "string",
-              "description": "The text for the option 'Convert to single quotes.'."
+              "description": "The text for the option 'Convert to single quotes'."
             },
             "convertToDoubleQuotes": {
               "type": "string",
-              "description": "The text for the option 'Convert to double quotes.'."
+              "description": "The text for the option 'Convert to double quotes'."
             },
             "convertToBackticks": {
               "type": "string",
-              "description": "The text for the option 'Convert to backticks.'."
+              "description": "The text for the option 'Convert to backticks'."
             }
           },
           "default": {
-            "convertToSingleQuotes": "Convert to single quotes.",
-            "convertToDoubleQuotes": "Convert to double quotes.",
-            "convertToBackticks": "Convert to backticks."
+            "convertToSingleQuotes": "Convert to single quotes",
+            "convertToDoubleQuotes": "Convert to double quotes",
+            "convertToBackticks": "Convert to backticks"
           },
           "description": "Specify the tooltip and quick fix texts for the offered conversions."
         },
@@ -152,18 +152,18 @@
           "properties": {
             "active": {
               "type": "boolean",
-              "description": "Enable/disable the option 'Add placeholder.'."
+              "description": "Enable/disable the option 'Add placeholder'."
             },
             "text": {
               "type": "string",
-              "description": "The tooltip and quick fix text for the option 'Add placeholder.'."
+              "description": "The tooltip and quick fix text for the option 'Add placeholder'."
             }
           },
           "default": {
             "active": true,
-            "text": "Add placeholder."
+            "text": "Add placeholder"
           },
-          "description": "Options for 'Add placeholder.'."
+          "description": "Options for 'Add placeholder'."
         }
       }
     }
