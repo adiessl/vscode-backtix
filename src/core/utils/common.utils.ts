@@ -2,7 +2,13 @@ import * as ts from "typescript";
 import * as vscode from 'vscode';
 
 export function createSourceFile(textDocument: vscode.TextDocument): ts.SourceFile {
-  return ts.createSourceFile(textDocument.fileName, textDocument.getText(), ts.ScriptTarget.Latest, true);
+  return ts.createSourceFile(
+    textDocument.fileName,
+    textDocument.getText(),
+    ts.ScriptTarget.Latest,
+    true,
+    getScriptKind(textDocument.languageId)
+  );
 }
 
 export function retrieveNodes(sourceFile: ts.SourceFile, syntaxKinds: { [kind in ts.SyntaxKind]?: boolean }): ts.Node[] {
@@ -19,4 +25,19 @@ export function retrieveNodes(sourceFile: ts.SourceFile, syntaxKinds: { [kind in
   filterStringNodes(sourceFile);
 
   return matchedNodes;
+}
+
+function getScriptKind(languageId: string) {
+  switch (languageId) {
+    case "javascript":
+      return ts.ScriptKind.JS;
+    case "typescript":
+      return ts.ScriptKind.TS;
+    case "javascriptreact":
+      return ts.ScriptKind.JSX;
+    case "typescriptreact":
+      return ts.ScriptKind.TSX;
+    default:
+      return ts.ScriptKind.Unknown;
+  }
 }
