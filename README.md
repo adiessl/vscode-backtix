@@ -27,6 +27,8 @@ If your answer to the last question is *"Too many"* – **BacktiX** to the rescu
 
 Adding a placeholder as well as the conversions are offered as quick fixes, three dots below the beginning of a string indicate that there is a quick fix available. Access these by either pressing `Ctrl`-`.` (Windows, Linux) or `Cmd`-`.` (OSX). Alternatively you can click on the light bulb icon to bring them up.
 
+Instead of using quick fixes it is also possible to use the contributed commands, either from the command palette or by binding them to keyboard shortcuts. Search for `BackTix` in both cases.
+
 ## Installation
 
 ![Installation](images/installation.gif)
@@ -67,16 +69,16 @@ This extension contributes the following settings:
 * `backtix.conversionTexts`: Specify the tooltip and quick fix texts for the offered conversions. Defaults:
   ```json
   "backtix.conversionTexts": {
-    "convertToSingleQuotes": "Convert to single quotes.",
-    "convertToDoubleQuotes": "Convert to double quotes.",
-    "convertToBackticks": "Convert to backticks."
+    "convertToSingleQuotes": "Convert to single quotes",
+    "convertToDoubleQuotes": "Convert to double quotes",
+    "convertToBackticks": "Convert to backticks"
   }
   ```
 * `backtix.placeholders`: Options for 'Add placeholder.'. Defaults:
   ```json
   "backtix.placeholders": {
     "active": true,
-    "text": "Add placeholder."
+    "text": "Add placeholder"
   }
   ```
 
