@@ -174,9 +174,7 @@
     "watch": "tsc -watch -p ./",
     "pretest": "yarn run compile && yarn run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js",
-    "pretest-ci": "yarn run pretest",
-    "test-ci": "node -e 'require(\"./out/test/index.js\").run()'"
+    "test": "node ./out/test/runTest.js"
   },
   "dependencies": {
     "typescript": "^4.2.4"

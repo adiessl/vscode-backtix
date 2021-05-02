@@ -16,7 +16,12 @@ jobs:
         run: yarn
 
       - name: Compile, lint and test
-        run: yarn run test-ci
+        run: xvfb-run -a yarn run test
+        if: runner.os == 'Linux'
+
+      - name: Compile, lint and test
+        run: yarn run test
+        if: runner.os != 'Linux'
 
   publish:
     needs: test
