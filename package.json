@@ -169,13 +169,13 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
+    "vscode:prepublish": "yarn run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
+    "pretest": "yarn run compile && yarn run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
-    "pretest-ci": "npm run pretest",
+    "pretest-ci": "yarn run pretest",
     "test-ci": "node -e 'require(\"./out/test/index.js\").run()'"
   },
   "dependencies": {
