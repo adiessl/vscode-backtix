@@ -12,6 +12,8 @@ suite('integration', () => {
     });
 
     suite('diagnostics should be available', () => {
+        suiteSetup(async () => await testUtils.createTextDocument('setup suite', undefined));
+
         teardown(async () => await vscode.commands.executeCommand('workbench.action.closeActiveEditor'));
 
         test('single quoted string', async () => {
