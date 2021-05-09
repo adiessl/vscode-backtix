@@ -12,6 +12,8 @@ suite('integration', () => {
     });
 
     suite('diagnostics should be available', () => {
+        suiteSetup(async () => await testUtils.createTextDocument('setup suite', undefined));
+
         teardown(async () => await vscode.commands.executeCommand('workbench.action.closeActiveEditor'));
 
         test('single quoted string', async () => {
@@ -27,7 +29,7 @@ suite('integration', () => {
             expect(commands).to.have.lengthOf(2);
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertBackticks', 'Convert to backticks', '`Testing`'));
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertDoubleQuotes', 'Convert to double quotes', `"Testing"`));
-        }).timeout(30000);
+        }).timeout(10000);
 
         test('double quoted string', async () => {
             const document = await testUtils.createTextDocument('const s = "Testing";');
@@ -42,7 +44,7 @@ suite('integration', () => {
             expect(commands).to.have.lengthOf(2);
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertBackticks', 'Convert to backticks', '`Testing`'));
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertSingleQuotes', 'Convert to single quotes', `'Testing'`));
-        }).timeout(30000);
+        }).timeout(10000);
 
         test('template string', async () => {
             const document = await testUtils.createTextDocument('const s = `Testing`;');
@@ -58,6 +60,6 @@ suite('integration', () => {
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertSingleQuotes', 'Convert to single quotes', `'Testing'`));
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertDoubleQuotes', 'Convert to double quotes', `"Testing"`));
             expect(commands).to.deep.contain(testUtils.createPlaceholderCommand());
-        }).timeout(30000);
+        }).timeout(10000);
     });
 });

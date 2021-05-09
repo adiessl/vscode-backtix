@@ -11,8 +11,6 @@ export const createTextDocument = async (content: string, language = 'typescript
 
     await vscode.window.showTextDocument(document, { preserveFocus: false, preview: false });
 
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
     return document;
 };
 
