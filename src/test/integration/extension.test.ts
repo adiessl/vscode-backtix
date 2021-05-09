@@ -27,7 +27,7 @@ suite('integration', () => {
             expect(commands).to.have.lengthOf(2);
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertBackticks', 'Convert to backticks', '`Testing`'));
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertDoubleQuotes', 'Convert to double quotes', `"Testing"`));
-        });
+        }).timeout(5000);
 
         test('double quoted string', async () => {
             const document = await testUtils.createTextDocument('const s = "Testing";');
@@ -42,7 +42,7 @@ suite('integration', () => {
             expect(commands).to.have.lengthOf(2);
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertBackticks', 'Convert to backticks', '`Testing`'));
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertSingleQuotes', 'Convert to single quotes', `'Testing'`));
-        });
+        }).timeout(5000);
 
         test('template string', async () => {
             const document = await testUtils.createTextDocument('const s = `Testing`;');
@@ -58,6 +58,6 @@ suite('integration', () => {
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertSingleQuotes', 'Convert to single quotes', `'Testing'`));
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertDoubleQuotes', 'Convert to double quotes', `"Testing"`));
             expect(commands).to.deep.contain(testUtils.createPlaceholderCommand());
-        });
+        }).timeout(5000);
     });
 });
