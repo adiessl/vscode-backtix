@@ -13,6 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
+        vscode-version: [stable, insiders]
       fail-fast: false
     runs-on: ${{ matrix.os }}
 
@@ -23,9 +24,9 @@ jobs:
         run: yarn
 
       - name: Compile, lint and test
-        run: xvfb-run -a yarn run test
+        run: xvfb-run -a yarn run test ${{ matrix.vscode-version }}
         if: runner.os == 'Linux'
 
       - name: Compile, lint and test
-        run: yarn run test
+        run: yarn run test ${{ matrix.vscode-version }}
         if: runner.os != 'Linux'
