@@ -26,9 +26,10 @@ suite('integration', () => {
             );
 
             expect(commands).not.to.be.undefined;
-            expect(commands).to.have.lengthOf(2);
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertBackticks', 'Convert to backticks', '`Testing`'));
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertDoubleQuotes', 'Convert to double quotes', `"Testing"`));
+            expect(commands).to.not.deep.contain(testUtils.createConvertCommand('backtix.convertSingleQuotes', 'Convert to single quotes', `'Testing'`));
+            expect(commands).to.not.deep.contain(testUtils.createPlaceholderCommand());
         }).timeout(10000);
 
         test('double quoted string', async () => {
@@ -41,9 +42,10 @@ suite('integration', () => {
             );
 
             expect(commands).not.to.be.undefined;
-            expect(commands).to.have.lengthOf(2);
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertBackticks', 'Convert to backticks', '`Testing`'));
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertSingleQuotes', 'Convert to single quotes', `'Testing'`));
+            expect(commands).to.not.deep.contain(testUtils.createConvertCommand('backtix.convertDoubleQuotes', 'Convert to double quotes', `"Testing"`));
+            expect(commands).to.not.deep.contain(testUtils.createPlaceholderCommand());
         }).timeout(10000);
 
         test('template string', async () => {
@@ -56,9 +58,9 @@ suite('integration', () => {
             );
 
             expect(commands).not.to.be.undefined;
-            expect(commands).to.have.lengthOf(3);
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertSingleQuotes', 'Convert to single quotes', `'Testing'`));
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertDoubleQuotes', 'Convert to double quotes', `"Testing"`));
+            expect(commands).to.not.deep.contain(testUtils.createConvertCommand('backtix.convertBackticks', 'Convert to backticks', '`Testing`'));
             expect(commands).to.deep.contain(testUtils.createPlaceholderCommand());
         }).timeout(10000);
     });
