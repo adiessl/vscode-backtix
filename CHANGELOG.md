@@ -1,5 +1,9 @@
 # Change Log
 
+## Version 2.0.1 (2021-05-11)
+- Explicitly set [`virtualWorkspaces` capability][u_1.56_1]
+- Add integration tests
+
 ## Version 2.0.0 (2021-04-29)
 - Support converting strings and adding placeholders via command palette / keyboard shortcut ([#4][i4])
 
@@ -34,3 +38,5 @@
 
 [i1]: https://github.com/adiessl/vscode-backtix/issues/1
 [i4]: https://github.com/adiessl/vscode-backtix/issues/4
+
+[u_1.56_1]: https://code.visualstudio.com/updates/v1_56#_define-whether-your-extension-supports-a-virtual-workspace
