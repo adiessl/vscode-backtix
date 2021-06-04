@@ -8,7 +8,7 @@ on:
     branches:
       - master
   schedule:
-    - cron:  '47 11 * * *'
+    - cron:  '47 11 * * SUN'
 
 jobs:
   test:
