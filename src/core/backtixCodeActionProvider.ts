@@ -179,7 +179,7 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
       edits.push({ range: lastRange, replacement: replacement.slice(-1) });
     }
 
-    const currentSelections = textEditor.selections;
+    const currentSelections = textEditor.selections.slice();
 
     const startToken = '${';
     const endToken = '}';
