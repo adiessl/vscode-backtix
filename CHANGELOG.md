@@ -1,5 +1,9 @@
 # Change Log
 
+## Version 2.0.2 (2022-04-05)
+- Explicitly set [`untrustedWorkspaces` capability][u_1.56_1]
+- Upgrade packages, fix breaking changes
+
 ## Version 2.0.1 (2021-05-11)
 - Explicitly set [`virtualWorkspaces` capability][u_1.56_1]
 - Add integration tests
@@ -40,3 +44,4 @@
 [i4]: https://github.com/adiessl/vscode-backtix/issues/4
 
 [u_1.56_1]: https://code.visualstudio.com/updates/v1_56#_define-whether-your-extension-supports-a-virtual-workspace
+[u_1.56_2]: https://code.visualstudio.com/updates/v1_56#_workspace-trust-extension-api
