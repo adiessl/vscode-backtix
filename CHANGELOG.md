@@ -1,5 +1,8 @@
 # Change Log
 
+## Version 2.0.3 (2022-05-29)
+- Upgrade packages
+
 ## Version 2.0.2 (2022-04-05)
 - Explicitly set [`untrustedWorkspaces` capability][u_1.56_1]
 - Upgrade packages, fix breaking changes
