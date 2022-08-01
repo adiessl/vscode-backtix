@@ -1,5 +1,8 @@
 # Change Log
 
+## Version 2.0.4 (2022-08-01)
+- Upgrade packages
+
 ## Version 2.0.3 (2022-05-29)
 - Upgrade packages
 
