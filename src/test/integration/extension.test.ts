@@ -28,10 +28,10 @@ suite('integration', function() {
             );
 
             expect(commands).not.to.be.undefined;
-            expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertBackticks', 'Convert to backticks', '`Testing`'));
-            expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertDoubleQuotes', 'Convert to double quotes', `"Testing"`));
-            expect(commands).to.not.deep.contain(testUtils.createConvertCommand('backtix.convertSingleQuotes', 'Convert to single quotes', `'Testing'`));
-            expect(commands).to.not.deep.contain(testUtils.createPlaceholderCommand());
+            expect(commands).to.deep.contain(testUtils.createConvertCodeAction('backtix.convertBackticks', 'Convert to backticks', '`Testing`'));
+            expect(commands).to.deep.contain(testUtils.createConvertCodeAction('backtix.convertDoubleQuotes', 'Convert to double quotes', `"Testing"`));
+            expect(commands).to.not.deep.contain(testUtils.createConvertCodeAction('backtix.convertSingleQuotes', 'Convert to single quotes', `'Testing'`));
+            expect(commands).to.not.deep.contain(testUtils.createPlaceholderCodeAction());
         });
 
         test('double quoted string', async function() {
@@ -44,10 +44,10 @@ suite('integration', function() {
             );
 
             expect(commands).not.to.be.undefined;
-            expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertBackticks', 'Convert to backticks', '`Testing`'));
-            expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertSingleQuotes', 'Convert to single quotes', `'Testing'`));
-            expect(commands).to.not.deep.contain(testUtils.createConvertCommand('backtix.convertDoubleQuotes', 'Convert to double quotes', `"Testing"`));
-            expect(commands).to.not.deep.contain(testUtils.createPlaceholderCommand());
+            expect(commands).to.deep.contain(testUtils.createConvertCodeAction('backtix.convertBackticks', 'Convert to backticks', '`Testing`'));
+            expect(commands).to.deep.contain(testUtils.createConvertCodeAction('backtix.convertSingleQuotes', 'Convert to single quotes', `'Testing'`));
+            expect(commands).to.not.deep.contain(testUtils.createConvertCodeAction('backtix.convertDoubleQuotes', 'Convert to double quotes', `"Testing"`));
+            expect(commands).to.not.deep.contain(testUtils.createPlaceholderCodeAction());
         });
 
         test('template string', async function() {
@@ -60,10 +60,10 @@ suite('integration', function() {
             );
 
             expect(commands).not.to.be.undefined;
-            expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertSingleQuotes', 'Convert to single quotes', `'Testing'`));
-            expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertDoubleQuotes', 'Convert to double quotes', `"Testing"`));
-            expect(commands).to.not.deep.contain(testUtils.createConvertCommand('backtix.convertBackticks', 'Convert to backticks', '`Testing`'));
-            expect(commands).to.deep.contain(testUtils.createPlaceholderCommand());
+            expect(commands).to.deep.contain(testUtils.createConvertCodeAction('backtix.convertSingleQuotes', 'Convert to single quotes', `'Testing'`));
+            expect(commands).to.deep.contain(testUtils.createConvertCodeAction('backtix.convertDoubleQuotes', 'Convert to double quotes', `"Testing"`));
+            expect(commands).to.not.deep.contain(testUtils.createConvertCodeAction('backtix.convertBackticks', 'Convert to backticks', '`Testing`'));
+            expect(commands).to.deep.contain(testUtils.createPlaceholderCodeAction());
         });
     });
 });

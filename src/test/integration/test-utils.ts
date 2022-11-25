@@ -14,35 +14,45 @@ export const createTextDocument = async (content: string, language = 'typescript
     return document;
 };
 
-export const createConvertCommand = (command: string, title: string, code: string | DiagnosticCodes): vscode.Command => {
+export const createConvertCodeAction = (command: string, title: string, code: string | DiagnosticCodes): vscode.CodeAction => {
     const diagnostic = new vscode.Diagnostic(new vscode.Range(0, 10, 0, 19), title, vscode.DiagnosticSeverity.Hint);
     diagnostic.code = code;
 
-    const createdCommand: vscode.Command = {
+    const createdCodeAction: vscode.CodeAction = {
         title,
-        command,
-        arguments: [diagnostic]
+        command: createCommand(command, diagnostic),
+        isPreferred: false,
+        kind: vscode.CodeActionKind.RefactorRewrite
     };
 
-    return createdCommand;
+    return createdCodeAction;
 };
 
-export const createPlaceholderCommand = (): vscode.Command => createCommand(
+export const createPlaceholderCodeAction = (): vscode.CodeAction => createCodeAction(
     'backtix.addPlaceholder',
     'Add placeholder',
     new vscode.Range(0, 11, 0, 18),
     DiagnosticCodes.ADD_PLACEHOLDER
 );
 
-export const createCommand = (command: string, title: string, range: vscode.Range, code: string | DiagnosticCodes): vscode.Command => {
+export const createCodeAction = (command: string, title: string, range: vscode.Range, code: string | DiagnosticCodes): vscode.CodeAction => {
     const diagnostic = new vscode.Diagnostic(range, title, vscode.DiagnosticSeverity.Hint);
     diagnostic.code = code;
 
-    const createdCommand: vscode.Command = {
+    const createdCodeAction: vscode.CodeAction = {
         title,
+        command: createCommand(command, diagnostic),
+        isPreferred: false,
+        kind: vscode.CodeActionKind.RefactorRewrite
+    };
+
+    return createdCodeAction;
+};
+
+export const createCommand = (command: string, diagnostic: vscode.Diagnostic): vscode.Command => {
+    return {
+        title: diagnostic.message,
         command,
         arguments: [diagnostic]
     };
-
-    return createdCommand;
-};
+}

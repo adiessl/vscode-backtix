@@ -86,11 +86,12 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
     document: vscode.TextDocument,
     range: vscode.Range,
     context: vscode.CodeActionContext
-  ): vscode.Command[] {
+  ): vscode.CodeAction[] {
     return context.diagnostics.map(diagnostic => ({
       title: diagnostic.message,
-      command: this.getCommandId(diagnostic),
-      arguments: [diagnostic]
+      command: this.getCommand(diagnostic),
+      isPreferred: false,
+      kind: vscode.CodeActionKind.RefactorRewrite
     }));
   }
 
@@ -124,6 +125,14 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
       : [];
 
     this.diagnosticCollection.set(textDocument.uri, diagnostics.concat(placeholderDiagnostics));
+  }
+
+  private getCommand(diagnostic: vscode.Diagnostic): vscode.Command {
+    return {
+      title: diagnostic.message,
+      command: this.getCommandId(diagnostic),
+      arguments: [diagnostic]
+    };
   }
 
   private getCommandId(diagnostic: vscode.Diagnostic): string {
