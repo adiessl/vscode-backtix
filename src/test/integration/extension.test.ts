@@ -4,19 +4,19 @@ import { expect } from 'chai';
 
 import * as testUtils from './test-utils';
 
-suite('integration', () => {
-    test('extension should be started', () => {
+suite('integration', function() {
+    test('extension should be started', function() {
         const extension = vscode.extensions.getExtension('adiessl.vscode-backtix');
 
         expect(extension).not.to.be.undefined;
     });
 
-    suite('diagnostics should be available', () => {
+    suite('diagnostics should be available', function() {
         suiteSetup(async () => await testUtils.createTextDocument('setup suite', undefined));
 
         teardown(async () => await vscode.commands.executeCommand('workbench.action.closeActiveEditor'));
 
-        test('single quoted string', async () => {
+        test('single quoted string', async function() {
             const document = await testUtils.createTextDocument(`const s = 'Testing';`);
 
             const commands: vscode.Command[] | undefined = await vscode.commands.executeCommand(
@@ -32,7 +32,7 @@ suite('integration', () => {
             expect(commands).to.not.deep.contain(testUtils.createPlaceholderCommand());
         }).timeout(10000);
 
-        test('double quoted string', async () => {
+        test('double quoted string', async function() {
             const document = await testUtils.createTextDocument('const s = "Testing";');
 
             const commands: vscode.Command[] | undefined = await vscode.commands.executeCommand(
@@ -48,7 +48,7 @@ suite('integration', () => {
             expect(commands).to.not.deep.contain(testUtils.createPlaceholderCommand());
         }).timeout(10000);
 
-        test('template string', async () => {
+        test('template string', async function() {
             const document = await testUtils.createTextDocument('const s = `Testing`;');
 
             const commands: vscode.Command[] | undefined = await vscode.commands.executeCommand(

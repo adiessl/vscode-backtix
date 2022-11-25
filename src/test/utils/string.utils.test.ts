@@ -1,11 +1,11 @@
 import * as assert from 'assert';
 import { replaceQuoteChars, escapeQuoteChars, inlineLineBreaks, wrapText } from '../../core/utils/string.utils';
 
-suite('string.utils.test', () => {
-  suite('replaceQuoteChars', () => {
-    suite('target: single quotes', () => {
-      suite('simple strings: the quotes should be replaced', () => {
-        test('from single quotes', () => {
+suite('string.utils.test', function() {
+  suite('replaceQuoteChars', function() {
+    suite('target: single quotes', function() {
+      suite('simple strings: the quotes should be replaced', function() {
+        test('from single quotes', function() {
           const original = `'This is a test.'`;
           const expected = `'This is a test.'`;
 
@@ -14,7 +14,7 @@ suite('string.utils.test', () => {
           assert.strictEqual(actual, expected);
         });
 
-        test('from double quotes', () => {
+        test('from double quotes', function() {
           const original = `"This is a test."`;
           const expected = `'This is a test.'`;
 
@@ -23,7 +23,7 @@ suite('string.utils.test', () => {
           assert.strictEqual(actual, expected);
         });
 
-        test('from backticks', () => {
+        test('from backticks', function() {
           const original = '`This is a test.`';
           const expected = `'This is a test.'`;
 
@@ -33,8 +33,8 @@ suite('string.utils.test', () => {
         });
       });
 
-      suite('strings including single quotes: single quotes should be escaped', () => {
-        test('from single quotes', () => {
+      suite('strings including single quotes: single quotes should be escaped', function() {
+        test('from single quotes', function() {
           const original = `"This is a 'test'."`;
           const expected = `'This is a \\'test\\'.'`;
 
@@ -43,7 +43,7 @@ suite('string.utils.test', () => {
           assert.strictEqual(actual, expected);
         });
 
-        test('from backticks', () => {
+        test('from backticks', function() {
           const original = '`This is a \'test\'.`';
           const expected = `'This is a \\'test\\'.'`;
 
@@ -53,8 +53,8 @@ suite('string.utils.test', () => {
         });
       });
 
-      suite('strings including escaped quotes: should not be escaped afterwards', () => {
-        test('from double quotes, including escaped double quotes', () => {
+      suite('strings including escaped quotes: should not be escaped afterwards', function() {
+        test('from double quotes, including escaped double quotes', function() {
           const original = `"This is a \\"test\\"."`;
           const expected = `'This is a "test".'`;
 
@@ -63,7 +63,7 @@ suite('string.utils.test', () => {
           assert.strictEqual(actual, expected);
         });
 
-        test('from backticks, including escaped backticks', () => {
+        test('from backticks, including escaped backticks', function() {
           const original = '`This is a \\`test\\`.`';
           const expected = '\'This is a `test`.\'';
 
@@ -74,9 +74,9 @@ suite('string.utils.test', () => {
       });
     });
 
-    suite('target: double quotes', () => {
-      suite('simple strings: the quotes should be replaced', () => {
-        test('from single quotes', () => {
+    suite('target: double quotes', function() {
+      suite('simple strings: the quotes should be replaced', function() {
+        test('from single quotes', function() {
           const original = `'This is a test.'`;
           const expected = `"This is a test."`;
 
@@ -85,7 +85,7 @@ suite('string.utils.test', () => {
           assert.strictEqual(actual, expected);
         });
 
-        test('from double quotes', () => {
+        test('from double quotes', function() {
           const original = `"This is a test."`;
           const expected = `"This is a test."`;
 
@@ -94,7 +94,7 @@ suite('string.utils.test', () => {
           assert.strictEqual(actual, expected);
         });
 
-        test('from backticks', () => {
+        test('from backticks', function() {
           const original = '`This is a test.`';
           const expected = `"This is a test."`;
 
@@ -104,8 +104,8 @@ suite('string.utils.test', () => {
         });
       });
 
-      suite('strings including double quotes: double quotes should be escaped', () => {
-        test('from single quotes', () => {
+      suite('strings including double quotes: double quotes should be escaped', function() {
+        test('from single quotes', function() {
           const original = `'This is a "test".'`;
           const expected = `"This is a \\"test\\"."`;
 
@@ -114,7 +114,7 @@ suite('string.utils.test', () => {
           assert.strictEqual(actual, expected);
         });
 
-        test('from backticks', () => {
+        test('from backticks', function() {
           const original = '`This is a "test".`';
           const expected = `"This is a \\"test\\"."`;
 
@@ -124,8 +124,8 @@ suite('string.utils.test', () => {
         });
       });
 
-      suite('strings including escaped quotes: should not be escaped afterwards', () => {
-        test('from single quotes, including escaped single quotes', () => {
+      suite('strings including escaped quotes: should not be escaped afterwards', function() {
+        test('from single quotes, including escaped single quotes', function() {
           const original = `'This is a \\'test\\'.'`;
           const expected = `"This is a 'test'."`;
 
@@ -134,7 +134,7 @@ suite('string.utils.test', () => {
           assert.strictEqual(actual, expected);
         });
 
-        test('from backticks, including escaped backticks', () => {
+        test('from backticks, including escaped backticks', function() {
           const original = '`This is a \\`test\\`.`';
           const expected = '"This is a `test`."';
 
@@ -145,9 +145,9 @@ suite('string.utils.test', () => {
       });
     });
 
-    suite('target: backticks', () => {
-      suite('simple strings: the quotes should be replaced', () => {
-        test('from single quotes', () => {
+    suite('target: backticks', function() {
+      suite('simple strings: the quotes should be replaced', function() {
+        test('from single quotes', function() {
           const original = `'This is a test.'`;
           const expected = '`This is a test.`';
 
@@ -156,7 +156,7 @@ suite('string.utils.test', () => {
           assert.strictEqual(actual, expected);
         });
 
-        test('from double quotes', () => {
+        test('from double quotes', function() {
           const original = `"This is a test."`;
           const expected = '`This is a test.`';
 
@@ -165,7 +165,7 @@ suite('string.utils.test', () => {
           assert.strictEqual(actual, expected);
         });
 
-        test('from backticks', () => {
+        test('from backticks', function() {
           const original = '`This is a test.`';
           const expected = '`This is a test.`';
 
@@ -175,8 +175,8 @@ suite('string.utils.test', () => {
         });
       });
 
-      suite('strings including backticks: backticks should be escaped', () => {
-        test('from single quotes', () => {
+      suite('strings including backticks: backticks should be escaped', function() {
+        test('from single quotes', function() {
           const original = '\'This is a `test`.\'';
           const expected = '`This is a \\`test\\`.`';
 
@@ -185,7 +185,7 @@ suite('string.utils.test', () => {
           assert.strictEqual(actual, expected);
         });
 
-        test('from double quotes', () => {
+        test('from double quotes', function() {
           const original = '"This is a `test`."';
           const expected = '`This is a \\`test\\`.`';
 
@@ -195,8 +195,8 @@ suite('string.utils.test', () => {
         });
       });
 
-      suite('strings including escaped quotes: should not be escaped afterwards', () => {
-        test('from single quotes, including escaped single quotes', () => {
+      suite('strings including escaped quotes: should not be escaped afterwards', function() {
+        test('from single quotes, including escaped single quotes', function() {
           const original = `'This is a \\'test\\'.'`;
           const expected = '`This is a \'test\'.`';
 
@@ -205,7 +205,7 @@ suite('string.utils.test', () => {
           assert.strictEqual(actual, expected);
         });
 
-        test('from double quotes, including escaped double quotes', () => {
+        test('from double quotes, including escaped double quotes', function() {
           const original = `"This is a \\"test\\"."`;
           const expected = '`This is a "test".`';
 
@@ -217,8 +217,8 @@ suite('string.utils.test', () => {
     });
   });
 
-  suite('escapeQuoteChars', () => {
-    test('should escape correctly', () => {
+  suite('escapeQuoteChars', function() {
+    test('should escape correctly', function() {
       const original = `This is a "test".`;
       const expected = `This is a \\"test\\".`;
 
@@ -227,7 +227,7 @@ suite('string.utils.test', () => {
       assert.strictEqual(actual, expected);
     });
 
-    test('should unescape correctly', () => {
+    test('should unescape correctly', function() {
       const original = `This is a \\"test\\".`;
       const expected = `This is a "test".`;
 
@@ -236,7 +236,7 @@ suite('string.utils.test', () => {
       assert.strictEqual(actual, expected);
     });
 
-    test('should escape and unescape correctly', () => {
+    test('should escape and unescape correctly', function() {
       const original = 'This `is` a "test"';
       const expected = 'This `is` a \\"test\\"';
 
@@ -246,8 +246,8 @@ suite('string.utils.test', () => {
     });
   });
 
-  suite('inlineLineBreaks', () => {
-    test('all line break types should be inlined', () => {
+  suite('inlineLineBreaks', function() {
+    test('all line break types should be inlined', function() {
       const original = 'This\ris\r\na\ntest.';
       const expected = 'This\\ris\\r\\na\\ntest.';
 
@@ -256,7 +256,7 @@ suite('string.utils.test', () => {
       assert.strictEqual(actual, expected);
     });
 
-    test('multiline template literals should be inlined correctly', () => {
+    test('multiline template literals should be inlined correctly', function() {
       const original = `This
       is
       a
@@ -270,8 +270,8 @@ suite('string.utils.test', () => {
     });
   });
 
-  suite('wrapText', () => {
-    test('the text should be wrapped with the specified string', () => {
+  suite('wrapText', function() {
+    test('the text should be wrapped with the specified string', function() {
       const original = 'Inside';
       const expected = '@@@Inside@@@';
 
