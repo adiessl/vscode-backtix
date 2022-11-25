@@ -12,6 +12,8 @@ suite('integration', function() {
     });
 
     suite('diagnostics should be available', function() {
+        this.timeout(10000);
+
         suiteSetup(async () => await testUtils.createTextDocument('setup suite', undefined));
 
         teardown(async () => await vscode.commands.executeCommand('workbench.action.closeActiveEditor'));
@@ -30,7 +32,7 @@ suite('integration', function() {
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertDoubleQuotes', 'Convert to double quotes', `"Testing"`));
             expect(commands).to.not.deep.contain(testUtils.createConvertCommand('backtix.convertSingleQuotes', 'Convert to single quotes', `'Testing'`));
             expect(commands).to.not.deep.contain(testUtils.createPlaceholderCommand());
-        }).timeout(10000);
+        });
 
         test('double quoted string', async function() {
             const document = await testUtils.createTextDocument('const s = "Testing";');
@@ -46,7 +48,7 @@ suite('integration', function() {
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertSingleQuotes', 'Convert to single quotes', `'Testing'`));
             expect(commands).to.not.deep.contain(testUtils.createConvertCommand('backtix.convertDoubleQuotes', 'Convert to double quotes', `"Testing"`));
             expect(commands).to.not.deep.contain(testUtils.createPlaceholderCommand());
-        }).timeout(10000);
+        });
 
         test('template string', async function() {
             const document = await testUtils.createTextDocument('const s = `Testing`;');
@@ -62,6 +64,6 @@ suite('integration', function() {
             expect(commands).to.deep.contain(testUtils.createConvertCommand('backtix.convertDoubleQuotes', 'Convert to double quotes', `"Testing"`));
             expect(commands).to.not.deep.contain(testUtils.createConvertCommand('backtix.convertBackticks', 'Convert to backticks', '`Testing`'));
             expect(commands).to.deep.contain(testUtils.createPlaceholderCommand());
-        }).timeout(10000);
+        });
     });
 });
