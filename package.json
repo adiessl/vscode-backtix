@@ -32,10 +32,6 @@
     "Backticks"
   ],
   "activationEvents": [
-    "onCommand:backtix.convertBackticks",
-    "onCommand:backtix.convertSingleQuotes",
-    "onCommand:backtix.convertDoubleQuotes",
-    "onCommand:backtix.addPlaceholder",
     "onLanguage:javascript",
     "onLanguage:typescript",
     "onLanguage:javascriptreact",
