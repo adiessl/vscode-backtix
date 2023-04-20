@@ -55,4 +55,4 @@ export const createCommand = (command: string, diagnostic: vscode.Diagnostic): v
         command,
         arguments: [diagnostic]
     };
-}
+};
