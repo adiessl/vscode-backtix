@@ -1,4 +1,7 @@
 # Change Log
+## Version 2.1.1 (2023-04-20)
+- Upgrade packages
+
 ## Version 2.1.0 (2022-11-25)
 - Set quick fix code action kind to "Rewrite"
 
