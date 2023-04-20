@@ -5,7 +5,7 @@
   "version": "2.1.0",
   "publisher": "adiessl",
   "engines": {
-    "vscode": "^1.73.1"
+    "vscode": "^1.77.0"
   },
   "license": "MIT",
   "homepage": "https://github.com/adiessl/vscode-backtix",
