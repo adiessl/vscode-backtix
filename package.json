@@ -2,7 +2,7 @@
   "name": "vscode-backtix",
   "displayName": "BacktiX",
   "description": "Easily convert plain strings to template literals and vice versa.",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "publisher": "adiessl",
   "engines": {
     "vscode": "^1.79.0"

@@ -1,4 +1,7 @@
 # Change Log
+## Version 2.1.2 (2023-06-11)
+- Upgrade packages
+
 ## Version 2.1.1 (2023-04-20)
 - Upgrade packages
 
