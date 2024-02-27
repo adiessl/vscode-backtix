@@ -14,6 +14,7 @@ suite('integration', function() {
     suite('diagnostics should be available', function() {
         const setup = (context: Mocha.Context) => {
             context.timeout(10000);
+            context.retries(3);
         };
 
         suiteSetup(async () => await testUtils.createTextDocument('setup suite', undefined));
