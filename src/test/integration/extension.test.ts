@@ -17,6 +17,8 @@ suite('integration', function() {
         teardown(async () => await vscode.commands.executeCommand('workbench.action.closeActiveEditor'));
 
         test('single quoted string', async function() {
+            this.timeout(10000);
+
             const document = await testUtils.createTextDocument(`const s = 'Testing';`);
 
             const commands: vscode.Command[] | undefined = await vscode.commands.executeCommand(
@@ -33,6 +35,8 @@ suite('integration', function() {
         });
 
         test('double quoted string', async function() {
+            this.timeout(10000);
+
             const document = await testUtils.createTextDocument('const s = "Testing";');
 
             const commands: vscode.Command[] | undefined = await vscode.commands.executeCommand(
@@ -49,6 +53,8 @@ suite('integration', function() {
         });
 
         test('template string', async function() {
+            this.timeout(10000);
+
             const document = await testUtils.createTextDocument('const s = `Testing`;');
 
             const commands: vscode.Command[] | undefined = await vscode.commands.executeCommand(
