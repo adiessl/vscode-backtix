@@ -30,7 +30,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Compile, lint and test
-        run: xvfb-run -a DBUS_SESSION_BUS_ADDRESS=/dev/null yarn run test --label ${{ matrix.vscode-version }}
+        run: xvfb-run -a -e /dev/null yarn run test --label ${{ matrix.vscode-version }}
         if: runner.os == 'Linux'
 
       - name: Compile, lint and test
