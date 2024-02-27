@@ -12,12 +12,16 @@ suite('integration', function() {
     });
 
     suite('diagnostics should be available', function() {
+        const setup = (context: Mocha.Context) => {
+            context.timeout(10000);
+        };
+
         suiteSetup(async () => await testUtils.createTextDocument('setup suite', undefined));
 
         teardown(async () => await vscode.commands.executeCommand('workbench.action.closeActiveEditor'));
 
         test('single quoted string', async function() {
-            this.timeout(10000);
+            setup(this);
 
             const document = await testUtils.createTextDocument(`const s = 'Testing';`);
 
@@ -35,7 +39,7 @@ suite('integration', function() {
         });
 
         test('double quoted string', async function() {
-            this.timeout(10000);
+            setup(this);
 
             const document = await testUtils.createTextDocument('const s = "Testing";');
 
@@ -53,7 +57,7 @@ suite('integration', function() {
         });
 
         test('template string', async function() {
-            this.timeout(10000);
+            setup(this);
 
             const document = await testUtils.createTextDocument('const s = `Testing`;');
 
