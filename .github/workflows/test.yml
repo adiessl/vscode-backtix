@@ -26,4 +26,9 @@ jobs:
         run: yarn
 
       - name: Compile, lint and test
+        run: xvfb-run -a yarn run test --label ${{ matrix.vscode-version }}
+        if: runner.os == 'Linux'
+
+      - name: Compile, lint and test
         run: yarn run test --label ${{ matrix.vscode-version }}
+        if: runner.os != 'Linux'
