@@ -12,8 +12,6 @@ suite('integration', function() {
     });
 
     suite('diagnostics should be available', function() {
-        this.timeout(10000);
-
         suiteSetup(async () => await testUtils.createTextDocument('setup suite', undefined));
 
         teardown(async () => await vscode.commands.executeCommand('workbench.action.closeActiveEditor'));
