@@ -175,7 +175,7 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "yarn run compile && yarn run lint",
-    "lint": "eslint src --ext ts",
+    "lint": "eslint src",
     "test": "vscode-test"
   },
   "dependencies": {
@@ -185,11 +185,10 @@
     "@types/chai": "^4.3.14",
     "@types/node": "^20.12.7",
     "@types/vscode": "^1.88.0",
-    "@typescript-eslint/eslint-plugin": "^7.7.0",
-    "@typescript-eslint/parser": "^7.7.0",
     "@vscode/test-cli": "^0.0.9",
     "@vscode/test-electron": "^2.3.9",
     "chai": "^4.4.1",
-    "eslint": "^9.1.0"
+    "eslint": "^9.1.0",
+    "typescript-eslint": "^7.7.1"
   }
 }
