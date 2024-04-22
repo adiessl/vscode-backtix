@@ -1,4 +1,7 @@
 # Change Log
+## Version 2.2.1 (2024-04-22)
+- Upgrade packages
+
 ## Version 2.2.0 (2024-02-27)
 - Switch to new method for executing extension tests
 
