@@ -3,8 +3,8 @@ import * as vscode from 'vscode';
 import * as testUtils from './test-utils';
 
 suite('integration', function () {
-  let assert: typeof import('chai').assert;
-  let expect: typeof import('chai').expect;
+  let assert: Chai.Assert;
+  let expect: Chai.ExpectStatic;
 
   suiteSetup(async () => {
     const chai = await import('chai');
