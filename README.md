@@ -8,6 +8,8 @@ How many steps did you have to take in these cases, only to convert the strings 
 
 If your answer to the last question is *"Too many"* – **BacktiX** to the rescue! No more fumbling around, just use the **quick fixes** this extension provides and convert strings instantly.
 
+**Please note:** starting with version 3.0.0, **BackTix** is a web extension, so it can not only be used inside VS Code desktop, but also on VS Code for the Web (including `vscode.dev` and `github.dev`) and in services like GitHub Codespaces.
+
 ## Features
 
 * Convert any string type to any other string type, for example:
