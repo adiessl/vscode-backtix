@@ -32,8 +32,10 @@ jobs:
 
       - name: Compile, lint and test
         run: xvfb-run -a yarn run test --browserType ${{ matrix.browser }} --quality ${{ matrix.vscode-version }}
+        timeout-minutes: 1
         if: runner.os == 'Linux'
 
       - name: Compile, lint and test
         run: yarn run test --browserType ${{ matrix.browser }} --quality ${{ matrix.vscode-version }}
+        timeout-minutes: 1
         if: runner.os != 'Linux'
