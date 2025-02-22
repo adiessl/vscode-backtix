@@ -23,7 +23,12 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Compile, lint and test
+        run: xvfb-run -a yarn run test --browserType ${{ matrix.browser }} --quality ${{ matrix.vscode-version }}
+        if: runner.os == 'Linux'
+
+      - name: Compile, lint and test
         run: yarn run test --browserType ${{ matrix.browser }} --quality ${{ matrix.vscode-version }}
+        if: runner.os != 'Linux'
 
   publish:
     needs: test
