@@ -1,4 +1,8 @@
 # Change Log
+## Version 3.0.0 (2025-02-22)
+- Convert BackTix to being a web extension
+- Upgrade Chai to version 5
+
 ## Version 2.2.2 (2025-02-22)
 - Upgrade packages
 
