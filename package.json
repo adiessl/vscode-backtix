@@ -37,7 +37,7 @@
     "onLanguage:javascriptreact",
     "onLanguage:typescriptreact"
   ],
-  "main": "./out/extension",
+  "browser": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
@@ -171,25 +171,36 @@
     "virtualWorkspaces": true
   },
   "scripts": {
-    "vscode:prepublish": "yarn run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "yarn run compile && yarn run lint",
+    "vscode:prepublish": "yarn run package-web",
+    "compile-web": "yarn run check-types && yarn run lint && node esbuild.js",
+    "watch-web": "npm-run-all -p watch-web:*",
+    "watch-web:esbuild": "node esbuild.js --watch",
+    "watch-web:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "pretest": "yarn run compile-web",
+    "check-types": "tsc --noEmit",
     "lint": "eslint src",
-    "test": "vscode-test"
+    "test": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. --extensionTestsPath=dist/test/extensionTests.js",
+    "package-web": "yarn run check-types && yarn run lint && node esbuild.js --production",
+    "run-in-browser": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. ."
   },
   "dependencies": {
     "typescript": "^5.7.3"
   },
   "devDependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@stylistic/eslint-plugin": "^4.0.1",
+    "@types/assert": "^1.5.11",
     "@types/chai": "^4.3.14",
-    "@types/node": "^22.13.5",
+    "@types/mocha": "^10.0.10",
     "@types/vscode": "^1.97.0",
-    "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.4.1",
+    "@vscode/test-web": "^0.0.66",
+    "assert": "^2.1.0",
     "chai": "^4.4.1",
-    "eslint": "^9.21.0",
+    "esbuild": "^0.25.0",
+    "eslint": "^9.19.0",
+    "glob": "^11.0.1",
+    "mocha": "^11.1.0",
+    "npm-run-all": "^4.1.5",
     "typescript-eslint": "^8.24.1"
   }
 }

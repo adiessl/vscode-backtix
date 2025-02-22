@@ -3,8 +3,8 @@ import { ConversionTargets, TargetLanguageSettings, ConversionTexts } from '../.
 import { StringType } from '../../core/models/constants';
 import { getTargetStringTypes, getLanguages, getTargetMessages } from '../../core/utils/settings.utils';
 
-suite('setting.utils.test', function() {
-  suite('getTargetStringTypes', function() {
+suite('setting.utils.test', function () {
+  suite('getTargetStringTypes', function () {
 
     function getConversionTargets(
       convertToBackticks: boolean,
@@ -18,7 +18,7 @@ suite('setting.utils.test', function() {
       };
     }
 
-    test('should be empty if all targets are set to false', function() {
+    test('should be empty if all targets are set to false', function () {
       const targets = getConversionTargets(false, false, false);
       const expected: StringType[] = [];
 
@@ -27,7 +27,7 @@ suite('setting.utils.test', function() {
       assert.deepStrictEqual(actual, expected);
     });
 
-    test('should contain "StringType.TEMPLATE_LITERAL" if "convertToBackticks" is set to true', function() {
+    test('should contain "StringType.TEMPLATE_LITERAL" if "convertToBackticks" is set to true', function () {
       const targets = getConversionTargets(true, false, false);
       const expected: StringType[] = [StringType.TEMPLATE_LITERAL];
 
@@ -36,7 +36,7 @@ suite('setting.utils.test', function() {
       assert.deepStrictEqual(actual, expected);
     });
 
-    test('should contain "StringType.SINGLE_QUOTE" if "convertToSingleQuotes" is set to true', function() {
+    test('should contain "StringType.SINGLE_QUOTE" if "convertToSingleQuotes" is set to true', function () {
       const targets = getConversionTargets(false, true, false);
       const expected: StringType[] = [StringType.SINGLE_QUOTE];
 
@@ -45,7 +45,7 @@ suite('setting.utils.test', function() {
       assert.deepStrictEqual(actual, expected);
     });
 
-    test('should contain "StringType.DOUBLE_QUOTE" if "convertToDoubleQuotes" is set to true', function() {
+    test('should contain "StringType.DOUBLE_QUOTE" if "convertToDoubleQuotes" is set to true', function () {
       const targets = getConversionTargets(false, false, true);
       const expected: StringType[] = [StringType.DOUBLE_QUOTE];
 
@@ -54,7 +54,7 @@ suite('setting.utils.test', function() {
       assert.deepStrictEqual(actual, expected);
     });
 
-    test('should contain all possibilities if all are set to true', function() {
+    test('should contain all possibilities if all are set to true', function () {
       const targets = getConversionTargets(true, true, true);
       const expected: StringType[] = [
         StringType.TEMPLATE_LITERAL,
@@ -68,7 +68,7 @@ suite('setting.utils.test', function() {
     });
   });
 
-  suite('getLanguages', function() {
+  suite('getLanguages', function () {
 
     function getTargetLanguageSettings(
       javascript: boolean,
@@ -84,7 +84,7 @@ suite('setting.utils.test', function() {
       };
     }
 
-    test('should be empty if all targets are set to false', function() {
+    test('should be empty if all targets are set to false', function () {
       const targetLanguages = getTargetLanguageSettings(false, false, false, false);
       const expected: string[] = [];
 
@@ -93,7 +93,7 @@ suite('setting.utils.test', function() {
       assert.deepStrictEqual(actual, expected);
     });
 
-    test('should contain "javascript" if set to true', function() {
+    test('should contain "javascript" if set to true', function () {
       const targetLanguages = getTargetLanguageSettings(true, false, false, false);
       const expected: string[] = ['javascript'];
 
@@ -102,7 +102,7 @@ suite('setting.utils.test', function() {
       assert.deepStrictEqual(actual, expected);
     });
 
-    test('should contain "javascriptreact" if set to true', function() {
+    test('should contain "javascriptreact" if set to true', function () {
       const targetLanguages = getTargetLanguageSettings(false, true, false, false);
       const expected: string[] = ['javascriptreact'];
 
@@ -111,7 +111,7 @@ suite('setting.utils.test', function() {
       assert.deepStrictEqual(actual, expected);
     });
 
-    test('should contain "typescript" if set to true', function() {
+    test('should contain "typescript" if set to true', function () {
       const targetLanguages = getTargetLanguageSettings(false, false, true, false);
       const expected: string[] = ['typescript'];
 
@@ -120,7 +120,7 @@ suite('setting.utils.test', function() {
       assert.deepStrictEqual(actual, expected);
     });
 
-    test('should contain "typescriptreact" if set to true', function() {
+    test('should contain "typescriptreact" if set to true', function () {
       const targetLanguages = getTargetLanguageSettings(false, false, false, true);
       const expected: string[] = ['typescriptreact'];
 
@@ -129,7 +129,7 @@ suite('setting.utils.test', function() {
       assert.deepStrictEqual(actual, expected);
     });
 
-    test('should contain all possibilities if all are set to true', function() {
+    test('should contain all possibilities if all are set to true', function () {
       const targetLanguages = getTargetLanguageSettings(true, true, true, true);
       const expected: string[] = [
         'javascript',
@@ -144,8 +144,8 @@ suite('setting.utils.test', function() {
     });
   });
 
-  suite('getTargetMessages', function() {
-    test('should map the conversion texts correctly', function() {
+  suite('getTargetMessages', function () {
+    test('should map the conversion texts correctly', function () {
       const conversionTexts: ConversionTexts = {
         convertToBackticks: 'backticks',
         convertToSingleQuotes: 'single',
@@ -153,8 +153,8 @@ suite('setting.utils.test', function() {
       };
       const expected: { [t in StringType]: string } = {
         [StringType.TEMPLATE_LITERAL]: 'backticks',
-        [StringType.SINGLE_QUOTE]:'single',
-        [StringType.DOUBLE_QUOTE]:'double'
+        [StringType.SINGLE_QUOTE]: 'single',
+        [StringType.DOUBLE_QUOTE]: 'double'
       };
 
       const actual = getTargetMessages(conversionTexts);
