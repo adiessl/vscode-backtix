@@ -179,16 +179,16 @@
     "test": "vscode-test"
   },
   "dependencies": {
-    "typescript": "^5.4.5"
+    "typescript": "^5.7.3"
   },
   "devDependencies": {
     "@types/chai": "^4.3.14",
-    "@types/node": "^20.12.7",
-    "@types/vscode": "^1.88.0",
-    "@vscode/test-cli": "^0.0.9",
-    "@vscode/test-electron": "^2.3.9",
+    "@types/node": "^22.13.5",
+    "@types/vscode": "^1.97.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
     "chai": "^4.4.1",
-    "eslint": "^9.1.0",
-    "typescript-eslint": "^7.7.1"
+    "eslint": "^9.21.0",
+    "typescript-eslint": "^8.24.1"
   }
 }
