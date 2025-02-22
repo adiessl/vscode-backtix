@@ -30,4 +30,4 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Compile, lint and test
-        run: yarn run test --label ${{ matrix.vscode-version }}
+        run: yarn run test --quality ${{ matrix.vscode-version }}
