@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import { expect } from 'chai';
+import { assert, expect } from 'chai';
 
 import * as testUtils from './test-utils';
 
@@ -8,7 +8,7 @@ suite('integration', function() {
     test('extension should be started', function() {
         const extension = vscode.extensions.getExtension('adiessl.vscode-backtix');
 
-        expect(extension).not.to.be.undefined;
+        assert.isDefined(extension);
     });
 
     suite('diagnostics should be available', function() {
@@ -32,7 +32,7 @@ suite('integration', function() {
                 new vscode.Selection(0, 0, 0, 15)
             );
 
-            expect(commands).not.to.be.undefined;
+            assert.isDefined(commands);
             expect(commands).to.deep.contain(testUtils.createConvertCodeAction('backtix.convertBackticks', 'Convert to backticks', '`Testing`'));
             expect(commands).to.deep.contain(testUtils.createConvertCodeAction('backtix.convertDoubleQuotes', 'Convert to double quotes', `"Testing"`));
             expect(commands).to.not.deep.contain(testUtils.createConvertCodeAction('backtix.convertSingleQuotes', 'Convert to single quotes', `'Testing'`));
@@ -50,7 +50,7 @@ suite('integration', function() {
                 new vscode.Selection(0, 0, 0, 15)
             );
 
-            expect(commands).not.to.be.undefined;
+            assert.isDefined(commands);
             expect(commands).to.deep.contain(testUtils.createConvertCodeAction('backtix.convertBackticks', 'Convert to backticks', '`Testing`'));
             expect(commands).to.deep.contain(testUtils.createConvertCodeAction('backtix.convertSingleQuotes', 'Convert to single quotes', `'Testing'`));
             expect(commands).to.not.deep.contain(testUtils.createConvertCodeAction('backtix.convertDoubleQuotes', 'Convert to double quotes', `"Testing"`));
@@ -68,7 +68,7 @@ suite('integration', function() {
                 new vscode.Selection(0, 0, 0, 15)
             );
 
-            expect(commands).not.to.be.undefined;
+            assert.isDefined(commands);
             expect(commands).to.deep.contain(testUtils.createConvertCodeAction('backtix.convertSingleQuotes', 'Convert to single quotes', `'Testing'`));
             expect(commands).to.deep.contain(testUtils.createConvertCodeAction('backtix.convertDoubleQuotes', 'Convert to double quotes', `"Testing"`));
             expect(commands).to.not.deep.contain(testUtils.createConvertCodeAction('backtix.convertBackticks', 'Convert to backticks', '`Testing`'));
