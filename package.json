@@ -179,9 +179,9 @@
     "pretest": "yarn run compile-web",
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
-    "test": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. --extensionTestsPath=dist/test/extensionTests.js",
+    "test": "vscode-test-web --extensionDevelopmentPath=. --extensionTestsPath=dist/test/extensionTests.js",
     "package-web": "yarn run check-types && yarn run lint && node esbuild.js --production",
-    "run-in-browser": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. ."
+    "run-in-browser": "vscode-test-web --extensionDevelopmentPath=. ."
   },
   "dependencies": {
     "typescript": "^5.7.3"

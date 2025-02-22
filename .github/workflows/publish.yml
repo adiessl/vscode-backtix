@@ -7,6 +7,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
+        browser: [chromium, firefox, webkit]
         vscode-version: [stable, insiders]
       fail-fast: false
     runs-on: ${{ matrix.os }}
@@ -22,7 +23,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Compile, lint and test
-        run: yarn run test --quality ${{ matrix.vscode-version }}
+        run: yarn run test --browserType ${{ matrix.browser }} --quality ${{ matrix.vscode-version }}
 
   publish:
     needs: test
