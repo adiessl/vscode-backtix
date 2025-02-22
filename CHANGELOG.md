@@ -1,4 +1,8 @@
 # Change Log
+## Version 3.0.1 (2025-02-22)
+- Update README
+- Bump braces from 3.0.2 to 3.0.3
+
 ## Version 3.0.0 (2025-02-22)
 - Convert BackTix to being a web extension
 - Upgrade Chai to version 5
