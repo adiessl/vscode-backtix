@@ -1,4 +1,7 @@
 # Change Log
+## Version 2.2.2 (2025-02-22)
+- Upgrade packages
+
 ## Version 2.2.1 (2024-04-22)
 - Upgrade packages
 
