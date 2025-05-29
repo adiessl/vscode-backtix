@@ -1,4 +1,7 @@
 # Change Log
+## Version 3.0.2 (2025-05-29)
+- Upgrade packages
+
 ## Version 3.0.1 (2025-02-22)
 - Update README
 - Bump braces from 3.0.2 to 3.0.3
