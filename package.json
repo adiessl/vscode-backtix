@@ -184,7 +184,7 @@
     "run-in-browser": "vscode-test-web --extensionDevelopmentPath=. ."
   },
   "dependencies": {
-    "typescript": "^5.7.3"
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
