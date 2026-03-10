@@ -1,12 +1,8 @@
 name: Test
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+  schedule:
+    - cron:  '47 11 * * SUN'
 
 jobs:
   test:
@@ -24,7 +20,7 @@ jobs:
         with:
           node-version: '22'
           cache: 'yarn'
-      
+
       - name: Restore packages
         run: yarn install --frozen-lockfile
 
