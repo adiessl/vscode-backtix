@@ -14,11 +14,7 @@ export function getTargetStringTypes(targets: ConversionTargets): StringType[] {
 }
 
 export function getLanguages(settings: TargetLanguageSettings): string[] {
-  return Object
-    .keys(settings)
-    .map(key => [key, settings[key]] as [string, boolean])
-    .filter(([, value]) => value === true)
-    .map(([key]) => key);
+  return Object.keys(settings).filter(key => settings[key] === true);
 }
 
 export function getTargetMessages(texts: ConversionTexts): { [t in StringType]: string } {
