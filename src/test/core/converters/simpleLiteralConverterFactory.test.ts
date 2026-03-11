@@ -16,8 +16,8 @@ suite('simpleLiteralConverterFactory', function () {
 
   test('should filter nodes by syntax kind', function () {
     const nodes = [
-      { kind: ts.SyntaxKind.StringLiteral, getText: () => "'test'" } as any as ts.Node,
-      { kind: ts.SyntaxKind.NumericLiteral, getText: () => '123' } as any as ts.Node,
+      { kind: ts.SyntaxKind.StringLiteral, getText: () => "'test'" } as unknown as ts.Node,
+      { kind: ts.SyntaxKind.NumericLiteral, getText: () => '123' } as unknown as ts.Node,
     ];
 
     const result = converter(nodes, [StringType.DOUBLE_QUOTE]);
@@ -28,7 +28,7 @@ suite('simpleLiteralConverterFactory', function () {
 
   test('should apply preprocessing and quote replacement', function () {
     const nodes = [
-      { kind: ts.SyntaxKind.StringLiteral, getText: () => "  'test'  " } as any as ts.Node,
+      { kind: ts.SyntaxKind.StringLiteral, getText: () => "  'test'  " } as unknown as ts.Node,
     ];
 
     const result = converter(nodes, [StringType.DOUBLE_QUOTE]);
@@ -39,7 +39,7 @@ suite('simpleLiteralConverterFactory', function () {
 
   test('should return multiple replacements if multiple targets are provided', function () {
     const nodes = [
-      { kind: ts.SyntaxKind.StringLiteral, getText: () => "'test'" } as any as ts.Node,
+      { kind: ts.SyntaxKind.StringLiteral, getText: () => "'test'" } as unknown as ts.Node,
     ];
 
     const result = converter(nodes, [StringType.DOUBLE_QUOTE, StringType.TEMPLATE_LITERAL]);
@@ -53,7 +53,7 @@ suite('simpleLiteralConverterFactory', function () {
 
   test('should filter out replacements that do not change the text', function () {
     const nodes = [
-      { kind: ts.SyntaxKind.StringLiteral, getText: () => "'test'" } as any as ts.Node,
+      { kind: ts.SyntaxKind.StringLiteral, getText: () => "'test'" } as unknown as ts.Node,
     ];
 
     // Mock replaceQuotes to return same text if it matches a certain condition
@@ -80,7 +80,7 @@ suite('simpleLiteralConverterFactory', function () {
 
   test('should handle no targets', function () {
     const nodes = [
-      { kind: ts.SyntaxKind.StringLiteral, getText: () => "'test'" } as any as ts.Node,
+      { kind: ts.SyntaxKind.StringLiteral, getText: () => "'test'" } as unknown as ts.Node,
     ];
     const result = converter(nodes, []);
     assert.strictEqual(result.length, 0);
