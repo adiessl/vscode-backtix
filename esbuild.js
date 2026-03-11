@@ -70,7 +70,7 @@ async function main() {
     sourcesContent: false,
     platform: 'browser',
     outdir: 'dist',
-    external: ['vscode'],
+    external: ['vscode', 'module'],
     logLevel: 'silent',
     // Node.js global to browser globalThis
     define: {
