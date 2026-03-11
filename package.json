@@ -193,7 +193,7 @@
     "@types/chai": "^5.0.1",
     "@types/mocha": "^10.0.10",
     "@types/vscode": "^1.97.0",
-    "@vscode/test-web": "^0.0.66",
+    "@vscode/test-web": "^0.0.80",
     "assert": "^2.1.0",
     "chai": "^5.2.0",
     "esbuild": "^0.25.0",
