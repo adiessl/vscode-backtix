@@ -169,23 +169,17 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
   private runAddPlaceholderCodeAction(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, diagnostic?: vscode.Diagnostic): void {
     diagnostic ??= this.getPlaceholderDiagnostic(textEditor);
 
-    const edits: { range: vscode.Range, replacement: string }[] = [];
+    let edits: { range: vscode.Range, replacement: string }[] = [];
 
     if (!diagnostic) {
-      diagnostic = this.getConvertDiagnostic(textEditor, StringType.TEMPLATE_LITERAL);
+      const fallback = this.getFallbackDiagnosticAndEdits(textEditor);
 
-      if (!diagnostic) {
+      if (!fallback) {
         return;
       }
 
-      const { start, end } = diagnostic.range;
-      const replacement = diagnostic.code as string;
-
-      const firstRange = new vscode.Range(start, start.translate(0, 1));
-      const lastRange = new vscode.Range(end.translate(0, -1), end);
-
-      edits.push({ range: firstRange, replacement: replacement[0] });
-      edits.push({ range: lastRange, replacement: replacement.slice(-1) });
+      diagnostic = fallback.diagnostic;
+      edits = fallback.edits;
     }
 
     const currentSelections = textEditor.selections.slice();
@@ -221,6 +215,27 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
     textEditor
       .edit(e => edits.forEach(({ range, replacement }) => e.replace(range, replacement)))
       .then(() => textEditor.selections = currentSelections);
+  }
+
+  private getFallbackDiagnosticAndEdits(textEditor: vscode.TextEditor): { diagnostic: vscode.Diagnostic, edits: { range: vscode.Range, replacement: string }[] } | undefined {
+    const diagnostic = this.getConvertDiagnostic(textEditor, StringType.TEMPLATE_LITERAL);
+
+    if (!diagnostic) {
+      return undefined;
+    }
+
+    const { start, end } = diagnostic.range;
+    const replacement = diagnostic.code as string;
+
+    const firstRange = new vscode.Range(start, start.translate(0, 1));
+    const lastRange = new vscode.Range(end.translate(0, -1), end);
+
+    const edits = [
+      { range: firstRange, replacement: replacement[0] },
+      { range: lastRange, replacement: replacement.slice(-1) }
+    ];
+
+    return { diagnostic, edits };
   }
 
   private applyDiagnostic(edit: vscode.TextEditorEdit, diagnostic?: vscode.Diagnostic): void {
