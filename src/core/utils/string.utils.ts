@@ -14,8 +14,8 @@ export function replaceQuoteChars(text: string, targetQuoteChar: string): string
 
 export function escapeQuoteChars(text: string, currentQuoteChar: string, targetQuoteChar: string): string {
   return text
-    .replace(new RegExp(`\\\\${currentQuoteChar}`, 'g'), currentQuoteChar)
-    .replace(new RegExp(`${targetQuoteChar}`, 'g'), `\\${targetQuoteChar}`);
+    .replace(new RegExp(`\\\\${escapeRegExp(currentQuoteChar)}`, 'g'), currentQuoteChar)
+    .replace(new RegExp(`${escapeRegExp(targetQuoteChar)}`, 'g'), `\\${targetQuoteChar}`);
 }
 
 export function inlineLineBreaks(text: string): string {
@@ -24,4 +24,8 @@ export function inlineLineBreaks(text: string): string {
 
 export function wrapText(text: string, wrapper: string): string {
   return `${wrapper}${text}${wrapper}`;
+}
+
+function escapeRegExp(text: string): string {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
