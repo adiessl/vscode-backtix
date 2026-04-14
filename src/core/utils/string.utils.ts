@@ -1,4 +1,8 @@
 export function replaceQuoteChars(text: string, targetQuoteChar: string): string {
+  if (!text || text.length < 2) {
+    return text;
+  }
+
   const currentQuoteChar = text[0];
 
   if (currentQuoteChar === targetQuoteChar) {

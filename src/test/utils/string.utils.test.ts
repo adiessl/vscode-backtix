@@ -145,6 +145,18 @@ suite('string.utils.test', function () {
       });
     });
 
+    suite('edge cases: short strings', function () {
+      test('should return empty string if input is empty', function () {
+        const actual = replaceQuoteChars('', '\'');
+        assert.strictEqual(actual, '');
+      });
+
+      test('should return input string if length is less than 2', function () {
+        const actual = replaceQuoteChars('"', '\'');
+        assert.strictEqual(actual, '"');
+      });
+    });
+
     suite('target: backticks', function () {
       suite('simple strings: the quotes should be replaced', function () {
         test('from single quotes', function () {
