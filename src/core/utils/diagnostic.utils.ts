@@ -12,7 +12,8 @@ export function convertToDiagnostic(
   const range = getDocumentRange(textDocument, replacement.node);
 
   const diagnostic = new vscode.Diagnostic(range, messages[replacement.targetType], vscode.DiagnosticSeverity.Hint);
-  diagnostic.code = replacement.replacement;
+  diagnostic.code = DiagnosticCodes.CONVERT_STRING;
+  diagnostic.data = replacement.replacement;
 
   return diagnostic;
 }

@@ -11,5 +11,6 @@ export const stringTypeToQuote: { [type in StringType]: string } = {
 };
 
 export enum DiagnosticCodes {
-  ADD_PLACEHOLDER
+  ADD_PLACEHOLDER,
+  CONVERT_STRING
 }

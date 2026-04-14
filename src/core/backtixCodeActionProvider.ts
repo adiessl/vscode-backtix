@@ -225,7 +225,7 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
     }
 
     const { start, end } = diagnostic.range;
-    const replacement = diagnostic.code as string;
+    const replacement = diagnostic.data as string;
 
     const firstRange = new vscode.Range(start, start.translate(0, 1));
     const lastRange = new vscode.Range(end.translate(0, -1), end);
@@ -244,7 +244,7 @@ export class BacktixCodeActionProvider implements vscode.CodeActionProvider {
     }
 
     const range = diagnostic.range;
-    const replacement = diagnostic.code as string;
+    const replacement = diagnostic.data as string;
 
     edit.replace(range, replacement);
   }
