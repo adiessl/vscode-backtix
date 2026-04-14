@@ -30,8 +30,7 @@ export function convertTemplateExpressions(nodes: ts.Node[], targets: StringType
         parts.push(processString(node.head.text));
 
         const spans = node.templateSpans
-          .map(processTemplateSpan)
-          .reduce((acc, cur) => acc.concat(cur), []);
+          .flatMap(processTemplateSpan);
 
         parts.push(...spans);
       }
@@ -49,6 +48,5 @@ export function convertTemplateExpressions(nodes: ts.Node[], targets: StringType
 
   return nodes
     .filter(node => node.kind === ts.SyntaxKind.TemplateExpression)
-    .map(node => convertNode(node))
-    .reduce((acc, cur) => acc.concat(cur), []);
+    .flatMap(node => convertNode(node));
 }

@@ -27,7 +27,6 @@ export function simpleLiteralConverterFactory(
 
     return nodes
       .filter(node => node.kind === filterSyntaxKind)
-      .map(node => convertNode(node))
-      .reduce((acc, cur) => acc.concat(cur), []);
+      .flatMap(node => convertNode(node));
   };
 }
