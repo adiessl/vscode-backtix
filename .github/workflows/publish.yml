@@ -70,7 +70,9 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Publish extension
-        run: npx vsce publish ${{ env.PACKAGE_VERSION }} --pat ${{ secrets.AZURE_DEVOPS_TOKEN }}
+        run: npx vsce publish ${{ env.PACKAGE_VERSION }}
+        env:
+          VSCE_PAT: ${{ secrets.AZURE_DEVOPS_TOKEN }}
 
       - name: Package extension
         run: npx vsce package --out ${{ env.RELEASE_NAME }}
