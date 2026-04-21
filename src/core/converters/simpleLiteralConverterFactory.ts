@@ -18,11 +18,16 @@ export function simpleLiteralConverterFactory(
       node: ts.Node
     ): NodeReplacement[] {
       const text = preprocessTextFunc(node.getText());
+      const replacements: NodeReplacement[] = [];
 
-      return targets
-        .map(target => [target, replaceQuoteCharsFunc(text, stringTypeToQuote[target])] as [StringType, string])
-        .filter(([, replaced]) => replaced !== text)
-        .map(([target, replaced]) => createNodeReplacement(node, target, replaced));
+      for (const target of targets) {
+        const replaced = replaceQuoteCharsFunc(text, stringTypeToQuote[target]);
+        if (replaced !== text) {
+          replacements.push(createNodeReplacement(node, target, replaced));
+        }
+      }
+
+      return replacements;
     }
 
     return nodes
