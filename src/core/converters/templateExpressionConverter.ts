@@ -42,8 +42,7 @@ export function convertTemplateExpressions(nodes: ts.Node[], targets: StringType
 
     return targets
       .filter(target => target !== StringType.TEMPLATE_LITERAL)
-      .map(target => [target, processNode(node, stringTypeToQuote[target])] as [StringType, string])
-      .map(([target, replaced]) => createNodeReplacement(node, target, replaced));
+      .map(target => createNodeReplacement(node, target, processNode(node, stringTypeToQuote[target])));
   }
 
   return nodes
