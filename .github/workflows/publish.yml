@@ -22,6 +22,9 @@ jobs:
       - name: Restore packages
         run: npm ci
 
+      - name: Install Playwright Browsers
+        run: npx playwright install chromium
+
       - name: Compile, lint and test
         run: xvfb-run -a npm test -- --browserType ${{ matrix.browser }} --quality ${{ matrix.vscode-version }}
         timeout-minutes: 1
