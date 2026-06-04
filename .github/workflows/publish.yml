@@ -73,12 +73,12 @@ jobs:
         run: npm ci
 
       - name: Publish extension
-        run: npx vsce publish ${{ env.PACKAGE_VERSION }}
+        run: npx @vscode/vsce publish ${{ env.PACKAGE_VERSION }}
         env:
           VSCE_PAT: ${{ secrets.AZURE_DEVOPS_TOKEN }}
 
       - name: Package extension
-        run: npx vsce package --out ${{ env.RELEASE_NAME }}
+        run: npx @vscode/vsce package --out ${{ env.RELEASE_NAME }}
 
       - name: Create release
         uses: svenstaro/upload-release-action@v2
