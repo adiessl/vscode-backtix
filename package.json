@@ -171,16 +171,16 @@
     "virtualWorkspaces": true
   },
   "scripts": {
-    "vscode:prepublish": "yarn run package-web",
-    "compile-web": "yarn run check-types && yarn run lint && node esbuild.js",
+    "vscode:prepublish": "npm run package-web",
+    "compile-web": "npm run check-types && npm run lint && node esbuild.js",
     "watch-web": "npm-run-all -p watch-web:*",
     "watch-web:esbuild": "node esbuild.js --watch",
     "watch-web:tsc": "tsc --noEmit --watch --project tsconfig.json",
-    "pretest": "yarn run compile-web",
+    "pretest": "npm run compile-web",
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
     "test": "vscode-test-web --extensionDevelopmentPath=. --extensionTestsPath=dist/test/extensionTests.js",
-    "package-web": "yarn run check-types && yarn run lint && node esbuild.js --production",
+    "package-web": "npm run check-types && npm run lint && node esbuild.js --production",
     "run-in-browser": "vscode-test-web --extensionDevelopmentPath=. ."
   },
   "dependencies": {
