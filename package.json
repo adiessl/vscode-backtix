@@ -176,10 +176,10 @@
     "watch-web": "npm-run-all -p watch-web:*",
     "watch-web:esbuild": "node esbuild.js --watch",
     "watch-web:tsc": "tsc --noEmit --watch --project tsconfig.json",
-    "pretest": "npm run compile-web",
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
-    "test": "vscode-test-web --extensionDevelopmentPath=. --extensionTestsPath=dist/test/extensionTests.js",
+    "test": "npm run compile-web && npm run test:no-compile --",
+    "test:no-compile": "vscode-test-web --extensionDevelopmentPath=. --extensionTestsPath=dist/test/extensionTests.js",
     "package-web": "npm run check-types && npm run lint && node esbuild.js --production",
     "run-in-browser": "vscode-test-web --extensionDevelopmentPath=. ."
   },
