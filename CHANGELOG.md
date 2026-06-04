@@ -1,4 +1,22 @@
 # Change Log
+## Version 4.0.0 (2026-06-04)
+- **Security Improvements**
+  - Fix potential ReDoS and Regex Injection in quote escaping utility.
+  - Fix unbounded substring vulnerability in string utilities.
+  - Secure npm installations by disabling lifecycle scripts and enforcing package release age verification.
+  - Prevent vsce Personal Access Token exposure in CI workflows by using environment variables.
+- **Performance Enhancements**
+  - Optimize AST node conversions to reduce unnecessary array allocations.
+  - Optimize template literal parts processing by improving array flattening efficiency.
+  - Combine chained map operations in template expression converter.
+- **Code Quality & Testing**
+  - Transition the project package manager from yarn to npm.
+  - Significantly expand unit test coverage across utilities and converters.
+  - Modernize test scripts to automatically compile the web extension and execute browser tests.
+- **Dependency Upgrades**
+  - Upgrade TypeScript to `^6.0.2` and ESLint to `^10.3.0`.
+  - Bump other dependencies and devDependencies to their latest versions.
+
 ## Version 3.0.2 (2025-05-29)
 - Upgrade packages
 
