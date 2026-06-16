@@ -184,7 +184,7 @@
     "run-in-browser": "vscode-test-web --extensionDevelopmentPath=. ."
   },
   "dependencies": {
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.3"
   },
   "devDependencies": {
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
@@ -193,16 +193,16 @@
     "@types/assert": "^1.5.11",
     "@types/chai": "^5.2.3",
     "@types/mocha": "^10.0.10",
-    "@types/vscode": "^1.118.0",
+    "@types/vscode": "^1.120.0",
     "@vscode/test-web": "^0.0.80",
     "assert": "^2.1.0",
     "chai": "^6.2.2",
     "esbuild": "^0.28.0",
-    "eslint": "^10.3.0",
+    "eslint": "^10.4.1",
     "glob": "^13.0.6",
-    "mocha": "^11.7.5",
+    "mocha": "^11.7.6",
     "npm-run-all": "^4.1.5",
-    "typescript-eslint": "^8.59.2"
+    "typescript-eslint": "^8.60.1"
   },
   "overrides": {
     "serialize-javascript": "^7.0.5",
