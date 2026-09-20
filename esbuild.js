@@ -1,6 +1,7 @@
 const esbuild = require('esbuild');
 const glob = require('glob');
 const path = require('path');
+const fs = require('node:fs/promises');
 const polyfill = require('@esbuild-plugins/node-globals-polyfill');
 
 const production = process.argv.includes('--production');
@@ -38,6 +39,20 @@ const esbuildProblemMatcherPlugin = {
 const testBundlePlugin = {
   name: 'testBundlePlugin',
   setup(build) {
+    // Mocha 12 marks its UMD browser bundle as ESM. Load it as CommonJS so
+    // its module.exports assignment cannot overwrite the test entry point.
+    const mochaPath = require.resolve('mocha/mocha');
+    build.onResolve({ filter: /^mocha\/mocha$/ }, () => ({
+      path: `${mochaPath}.cjs`,
+      namespace: 'mocha-browser',
+    }));
+    build.onLoad({ filter: /\.cjs$/, namespace: 'mocha-browser' }, async () => ({
+      contents: await fs.readFile(mochaPath, 'utf8'),
+      loader: 'js',
+      resolveDir: path.dirname(mochaPath),
+      watchFiles: [mochaPath],
+    }));
+
     build.onResolve({ filter: /[\/\\]extensionTests\.ts$/ }, args => {
       if (args.kind === 'entry-point') {
         return { path: path.resolve(args.path) };
